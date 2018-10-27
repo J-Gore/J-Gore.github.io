@@ -1,6 +1,6 @@
 <html>
     <header>
-        <title>Test!</title>
+        <title>UNiDATES // The worlds first fruit based daing site!</title>
         <span class="border">
         <img src="icons/logo.png" class="mainLogo"/>
     </span>
@@ -37,9 +37,8 @@
             display: flex;
             justify-content: center;
         }
-        img.imgUpload{
+        img.profileIcon{
             width: 500px;
-            padding:0 auto;
         }
         
         fieldset{
@@ -58,45 +57,61 @@
         }
     
         .btn {
-          border: 2px solid gray;
-          color: gray;
-          background-color: white;
-          padding: 8px 20px;
-          border-radius: 8px;
-          font-size: 20px;
-          font-weight: bold;
+            border: 2px solid gray;
+            color: gray;
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
         }
 
         .upload-btn-wrapper input[type=file] {
-          position: absolute;
-          left: 0;
-          top: 0;
-          opacity: 0;
-          width: 500px;
-          padding:0 auto;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 500px;
+            padding:0 auto;
         }
 
         div.everything{
-            max-width: 875px;
             display: flex;
-            align-content: center;
+            justify-content: center;
         }
+
         body{
-            padding:20px;
             background-color: #3a86ff;
         }
+
+        div.matchme{
+            display: flex;
+            justify-content: center;
+        }
+        span.matchMeBtn{
+
+        }
+        
     </style>
 </head>
+
 <div class="everything">
+    <div class="everything ">
     <body>
-    <form id="uploadProfilePicture">
-        <fieldset>
-            <div class="upload-btn-wrapper">
-                <img src="icons/portrait-solid.svg" class="imgUpload">
-                <button class="btn">Upload a file</button>
-                <input type="file" name="myfile" id="profilePicture" name="profile" accept="image/png, image/jpeg" />
-            </div>
-        </fieldset>    
-    </form>
+        <form id="uploadProfilePicture">
+            <fieldset>
+                <div><img src="icons/portrait-solid.svg" class="profileIcon"></div>
+                <div class="upload-btn-wrapper">
+                    <button class="btn">Upload a file</button>
+                    <input type="file" name="myfile" id="profilePicture" name="profile" accept="image/png, image/jpeg" />
+                </div>
+
+                <div class="matchme">
+                    <span class="matchMeBtn btn"><a>Match Me!</a></span>
+                </div>
+
+            </fieldset>    
+        </form>
     </body>
+</div>
 </div>
