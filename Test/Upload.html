@@ -1,0 +1,102 @@
+<html>
+    <header>
+        <title>Test!</title>
+        <span class="border">
+        <img src="icons/logo.png" class="mainLogo"/>
+    </span>
+    </header>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $("#profilePicture").on('change', function(){
+                var fileInput = document.getElementById('profilePicture');
+                var file = fileInput.files[0];
+                var formData = new FormData();
+                formData.append('image', file);
+
+                $.ajax({
+                    type: "POST",
+                    url: "https://api.imgur.com/3/image",
+                    enctype: 'multipart/form-data',
+                    processData: false, 
+                    contentType: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', 'Client-Id 939dfa3b3fb5de4');
+                    },
+                    data: formData
+                }).done(function(data){
+                    console.log(data);
+                });
+            });
+        });
+    </script>
+
+    <style>
+        header{
+            display: flex;
+            justify-content: center;
+        }
+        img.imgUpload{
+            width: 500px;
+            padding:0 auto;
+        }
+        
+        fieldset{
+            border: none;
+        }
+        img.mainLogo{
+            width:auto;
+            padding:20px;
+            max-height: 155px;
+        }
+
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+    
+        .btn {
+          border: 2px solid gray;
+          color: gray;
+          background-color: white;
+          padding: 8px 20px;
+          border-radius: 8px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+        .upload-btn-wrapper input[type=file] {
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0;
+          width: 500px;
+          padding:0 auto;
+        }
+
+        div.everything{
+            max-width: 875px;
+            display: flex;
+            align-content: center;
+        }
+        body{
+            padding:20px;
+            background-color: #3a86ff;
+        }
+    </style>
+</head>
+<div class="everything">
+    <body>
+    <form id="uploadProfilePicture">
+        <fieldset>
+            <div class="upload-btn-wrapper">
+                <img src="icons/portrait-solid.svg" class="imgUpload">
+                <button class="btn">Upload a file</button>
+                <input type="file" name="myfile" id="profilePicture" name="profile" accept="image/png, image/jpeg" />
+            </div>
+        </fieldset>    
+    </form>
+    </body>
+</div>
