@@ -1,5 +1,5 @@
 <html>
-    <header>
+    <header class="center-content">
         <title>UNiDATES // The worlds first fruit based daing site!</title>
         <span class="border">
         <img src="icons/logo.png" class="mainLogo"/>
@@ -26,17 +26,16 @@
                     },
                     data: formData
                 }).done(function(data){
+                    
                     console.log(data);
+                    $("#profileIcon").attr("src",data.data.link);
+                    $("#uploadBtn").attr("hidden", "true");
                 });
             });
         });
     </script>
 
     <style>
-        header{
-            display: flex;
-            justify-content: center;
-        }
         img.profileIcon{
             width: 500px;
         }
@@ -48,6 +47,14 @@
             width:auto;
             padding:20px;
             max-height: 155px;
+        }
+        img.profileIcon{
+            border-radius: 60px;
+            box-shadow: 0 0 0 5px black inset;
+        }
+        .center-content{
+            display: flex;
+            justify-content: center;
         }
 
         .upload-btn-wrapper {
@@ -72,12 +79,8 @@
             top: 0;
             opacity: 0;
             width: 500px;
+            height:100%;
             padding:0 auto;
-        }
-
-        div.everything{
-            display: flex;
-            justify-content: center;
         }
 
         body{
@@ -89,27 +92,61 @@
             justify-content: center;
         }
         span.matchMeBtn{
+            box-shadow: 0 0 0 3px #ff006e inset;
+            background-color: #ff006e;
+            color: #2D3142;
 
+            border: 2px solid gray;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 50px;
+            font-weight: bold;
+            font-family: 'Roboto', sans-serif;
         }
-        
+
+        p{
+            font-size: 50px;
+            font-family: 'Roboto', sans-serif;
+            color: #2D3142;
+            margin:0;
+        }
+        .namedInput{
+            padding: 20px;
+            display: flex;
+            align-content: center;
+            justify-content: flex-start;
+        }
+        input.userInp{
+            height: 50px;
+            width:100%;
+        }
+        input.userInp:focus {
+            border: 3px solid #555;
+        }
     </style>
 </head>
 
-<div class="everything">
-    <div class="everything ">
+<div class="center-content">
+    <div class="center-content">
     <body>
         <form id="uploadProfilePicture">
             <fieldset>
-                <div><img src="icons/portrait-solid.svg" class="profileIcon"></div>
                 <div class="upload-btn-wrapper">
-                    <button class="btn">Upload a file</button>
-                    <input type="file" name="myfile" id="profilePicture" name="profile" accept="image/png, image/jpeg" />
+                    <img src="icons/portrait-solid.svg" class="profileIcon" id="profileIcon">
+                    <div class="center-content">
+                        <button class="btn" id="uploadBtn">Upload a file</button>
+                        <input type="file" name="myfile" id="profilePicture" name="profile" accept="image/png, image/jpeg" />
+                    </div>
+                </div>
+
+                <div class="namedInput">
+                    
+                    <input class="userInp" type="text" name="nameInp" placeholder="Your Name">
                 </div>
 
                 <div class="matchme">
-                    <span class="matchMeBtn btn"><a>Match Me!</a></span>
+                    <a><span class="matchMeBtn">Match Me!</span></a>
                 </div>
-
             </fieldset>    
         </form>
     </body>
