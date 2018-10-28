@@ -1,0 +1,97 @@
+<html>
+    <header class="center-content">
+        <title>UNiDATES // The worlds first fruit based daing site!</title>
+        <span class="border">
+        <img src="icons/logo.png" class="mainLogo"/>
+    </span>
+    </header>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <style>
+        a{
+            text-decoration: none;
+        }
+        img.profileIcon{
+            width: 500px;
+        }
+        
+        fieldset{
+            border: none;
+        }
+        img.mainLogo{
+            width:auto;
+            padding:20px;
+            max-height: 155px;
+        }
+        img.profileIcon{
+            border-radius: 60px;
+            box-shadow: 0 0 0 5px black inset;
+            width:auto;
+            max-height: 500px;
+        }
+        .center-content{
+            display: flex;
+            justify-content: center;
+        }
+    
+        .btn {
+            border: 2px solid gray;
+            color: gray;
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        body{
+            background-color: #3a86ff;
+        }
+
+        p{
+            font-size: 50px;
+            font-family: 'Roboto', sans-serif;
+            color: #2D3142;
+            margin:0;
+        }
+
+        .namedInput{
+            padding: 20px;
+            display: flex;
+            align-content: center;
+            justify-content: flex-start;
+        }
+        input.userInp{
+            height: 50px;
+            width:100%;
+            font-size: 37px;
+            text-align: center;
+        }
+        input.userInp:focus {
+            border: 3px solid #555;
+        }
+    </style>
+</head>
+
+<div class="center-content">
+    <div class="center-content">
+        <body>
+            <fieldset>
+                <div class="center-content">
+                    <p>You matched with</p>
+                </div>
+                <div class="upload-btn-wrapper center-content">
+                    <img src="https://i.imgur.com/oeR0JEi.jpg" class="profileIcon" id="profileIcon">
+                </div>
+
+                <div class="namedInput">
+                    <input readonly class="userInp" type="text" name="nameInp" placeholder="Big ol' Zucc">
+                </div>
+                <div class="center-content">
+                    <p>You are both green apples!</p>
+                </div>
+            </fieldset>    
+        </body>
+    </div>
+</div>
