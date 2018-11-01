@@ -1,56 +1,43 @@
 <!DOCTYPE html>
+
 <html>
-  <style>
-    h1 {
-    font-family: Tahoma, Geneva, sans-serif;
-    font-size:140px}
-    .content{
-      max-width: 100%;
-    }
-  </style>
-  
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110467141-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-110467141-1');
-</script>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-    <title>Countdown to the end of the internship</title>
-  </head>
-  
-  <div>
-    <h1 class="content">Time left in internship: </h1>  
-    <h1 class="content" id="demo"; >?</h1> 
-  </div>
- 
-<script>
-// Set the date we're counting down to
-var countDownDate = new Date("July 16, 2019 17:30:00").getTime();
-// Update the count down every 1 second
-var x = setInterval(function() {
-  // Get todays date and time
-  var now = new Date().getTime();
-  // Find the distance between now an the count down date
-  var distance = countDownDate - now;
-  // Time calculations for days, hours, minutes and seconds
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  // Display the result in the element with id="demo"
-  document.getElementById("demo").innerHTML =days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
-  // If the count down is finished, write some text 
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "It's over!";
-  }
-}, 1000);
-</script>
-  
-</body>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Bitter|Source+Sans+Pro:300" rel="stylesheet">
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<title>Jake Gore // Software Engineer</title>
+	</head>
+
+	<style type="text/css">
+		.nice-font{font-family: 'Bitter', serif;}
+		.sans-serif{font-family: 'Source Sans Pro', sans-serif;}
+		.center{
+			display: flex;
+			justify-content: center;
+		}
+		.left{
+			display: flex;
+			justify-content: flex-start;
+		}
+		.inner{
+			width:100%;
+		}
+		p{
+			font-size: 50px;
+		}
+		h1{
+			font-size: 4em;
+			margin-right: 1em;
+		}
+	</style>
+<div class="left">
+	<body class="center">
+		<div>
+		<div class="center inner">
+		<header class="center nice-font"><h1>Jake Gore</h1></header>
+
+		<p class="center sans-serif">I am a second year Computer Science student at the University Of Hull. Currently, on a year in industry working as a software engineer for UNiDAYS in Nottingham.</p>
+		</div>
+	</div>
+	</body>
+</div>
 </html>
