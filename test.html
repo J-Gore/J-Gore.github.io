@@ -1,25 +1,37 @@
 <style>
+	body{
+		background-image: url(http://jakegore.co.uk/rob-happy2.gif); 
+		overflow: hidden;
+	}
   h1{
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 300px;
     text-align: center;
     margin: 0;
     z-index: 10000;
-    position: relative;
+    position:relative;
   }
   .rainbow{
   	animation: rainbow 3s infinite; 
   }
-  .loading{
+  .clockwise{
   	-webkit-animation: rotation 2s infinite linear;
+  }
+  .anticlockwise{
+  	-webkit-animation: antirotation 2s infinite linear;
+  }
+  .loading{
   	height: 20%;
   	width: auto;
+  	
   }
   .rowofrobs{
   	display: flex;
   	justify-content: center;
+  	flex-flow:row wrap;
   }
   .allrobs{
+
   	width: 100%;
   	position: absolute;
   	top: 0;
@@ -27,6 +39,16 @@
    	z-index: 500;
   }
 
+  .clockwise:nth-child(2n){
+  	-webkit-animation: antirotation 2s infinite linear;
+  }
+  .allrobs2{
+  	width: 100%;
+  	position: absolute;
+  	top: 100px;
+    right: 100px;
+   	z-index: 500;
+  }
   @-webkit-keyframes rotation {
 		from {
 			-webkit-transform: rotate(0deg);
@@ -36,6 +58,14 @@
 		}
 	}
 
+	 @-webkit-keyframes antirotation {
+		from {
+			-webkit-transform: rotate(0deg);
+		}
+		to {
+			-webkit-transform: rotate(-359deg);
+		}
+	}
   @keyframes rainbow{
   	0%{color: orange;}	
   	10%{color: purple;}	
@@ -45,71 +75,123 @@
 	100%{color: blue;}
 	100%{color: orange;}
 }
-
 </style>
 
 <div class="all">
 <h1 class="rainbow">YES!</h1>
-<div class="allrobs">
-	<div class="rowofrobs">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
+<div class="">
+	<div class="rowofrobs allrobs">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+	
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+	
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+	
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+	
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading clockwise" src="http://jakegore.co.uk/rob-happy2.gif">
 	</div>
-	<div class="rowofrobs">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-	</div>
-	<div class="rowofrobs">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-	</div>
-	<div class="rowofrobs">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-	</div>
-	<div class="rowofrobs">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-		<img class="loading" src="http://jakegore.co.uk/rob-happy2.gif">
-	</div>
+	<!-- <div class="rowofrobs2 allrobs2">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+	
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+	
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+	
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+	
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+		<img class="loading anticlockwise" src="http://jakegore.co.uk/rob-happy2.gif">
+	</div> -->
 </div>
 </div>
+
