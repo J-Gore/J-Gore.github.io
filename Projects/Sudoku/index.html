@@ -1,4 +1,8 @@
 <html>
+	<head>
+		<title>Jake Gore // Sudoku</title>
+	</head>
+
 	<h1>Sudoku Solver</h1>
 	<p id="board"></p>
 	<table>
@@ -43,9 +47,12 @@
 
 	var rows = document.querySelector("tbody").children;
 
+	var cellsModified = 0;
+
 	CreateMask();
 	DisplayBoard();
 	Solve(0,0);
+	document.getElementById('board').innerText = cellsModified;
 
 	// function DisplayBoard(){
 	// 	var display = document.getElementById('board');
@@ -94,10 +101,10 @@
             for (var i = 1; i < 10; i++)
             {
                 board[top][left] = i;
-
-				setTimeout(function () {
+				cellsModified ++;
+				//setTimeout(function () {
 					cells[left].innerText = board[top][left];
-			    }, 500)
+			   // }, 500)
 
 				if (CheckAll(top,left))
                 {
