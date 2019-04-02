@@ -34,10 +34,10 @@
     }, false);
     const constraints = {
         audio: false,
-        video: true// { facingMode: { exact: "environment" } }
+        video: { facingMode: { exact: "environment" } }
     };
     function handleSuccess(stream) {
-        window.stream = stream; // make stream available to browser console
+        window.stream = stream;
         video.srcObject = stream;
     }
     function handleError(error) {
@@ -51,7 +51,6 @@
             option.value = deviceInfo.deviceId;
             
             if (deviceInfo.kind === 'videoinput') {
-                alert(deviceInfo.deviceId);
                 option.text = deviceInfo.label || `camera ${videoSelect.length + 1}`;
                 videoSelect.appendChild(option);
             } else {
