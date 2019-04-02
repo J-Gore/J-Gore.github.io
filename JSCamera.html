@@ -70,18 +70,18 @@
     }
 
     function start() {
-        if (window.stream) {
-            window.stream.getTracks().forEach(track => {
-                track.stop();
-            });
-        }
+        // if (window.stream) {
+        //     window.stream.getTracks().forEach(track => {
+        //         track.stop();
+        //     });
+        // }
         const videoSource = videoSelect.value;
 
         const constraints = {
             video: { deviceId: { exact: videoSource } }
         };
 
-        //navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
+        navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
 
         
     }
