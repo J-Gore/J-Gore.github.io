@@ -1,3 +1,18 @@
+<style>
+    .box{
+        position: absolute;
+        font-size: 500;
+        top: -285px;
+        line-height: 0;
+        color: white;
+        overflow: hidden;
+        display:flex;
+    }
+    p.left{
+        padding-right: 300px;
+    }
+</style>
+
 <div id="container">
 
     <div class="select">
@@ -12,6 +27,10 @@
     <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas" title="Stolen from GitHub"
         id="viewSource">Stolen From GitHub</a>
 
+</div>
+
+<div class="box">
+    <p class="left">[</p><p>]</p>
 </div>
 
 <script>
@@ -60,7 +79,6 @@
             option.value = deviceInfo.deviceId;
             
             if (deviceInfo.kind === 'videoinput') {
-                alert(deviceInfo.deviceId);
                 option.text = deviceInfo.label || `camera ${videoSelect.length + 1}`;
                 videoSelect.appendChild(option);
             } else {
