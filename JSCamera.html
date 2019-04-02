@@ -1,5 +1,9 @@
 <div id="container">
 
+    <div class="select">
+        <label for="videoSource">Video source: </label><select id="videoSource"></select>
+    </div>
+
     <video playsinline autoplay></video>
     <button class="snapShot">Take snapshot</button>
     <canvas></canvas>
@@ -13,8 +17,12 @@
 <script>
     const video = document.querySelector('video');
     const canvas = window.canvas = document.querySelector('canvas');
+    const videoSelect = document.querySelector('select#videoSource');
+
     canvas.width = 480;
     canvas.height = 360;
+
+    navigator.mediaDevices.enumerateDevices().then(gotDevices);
 
     const button = document.querySelector('.snapShot');
     button.onclick = function () {
@@ -24,7 +32,7 @@
     };
 
     var link = document.querySelector('.save');
-        link.addEventListener('click', function (ev) {
+    link.addEventListener('click', function (ev) {
         link.href = canvas.toDataURL();
         link.download = "mypainting.png";
     }, false);
@@ -44,4 +52,38 @@
     }
 
     navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+
+    function gotDevices(deviceInfos) {
+        for (let i = 0; i !== deviceInfos.length; ++i) {
+            const deviceInfo = deviceInfos[i];
+            const option = document.createElement('option');
+            option.value = deviceInfo.deviceId;
+
+            if (deviceInfo.kind === 'videoinput') {
+                option.text = deviceInfo.label || `camera ${videoSelect.length + 1}`;
+                videoSelect.appendChild(option);
+            } else {
+                console.log('Some other kind of source/device: ', deviceInfo);
+            }
+        }
+    }
+
+    function start() {
+        if (window.stream) {
+            window.stream.getTracks().forEach(track => {
+                track.stop();
+            });
+        }
+        const videoSource = videoSelect.value;
+
+        const constraints = {
+            video: { deviceId: videoSource ? { exact: videoSource } : undefined }
+        };
+
+        //navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
+
+        
+    }
+
+    videoSelect.onchange = start;
 </script>
