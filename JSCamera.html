@@ -1,16 +1,12 @@
 <div id="container">
 
     <video playsinline autoplay></video>
-    <button>Take snapshot</button>
+    <button class="snapShot">Take snapshot</button>
     <canvas></canvas>
+    <button><a class="save">save image</a></button>
 
-    <p>Draw a frame from the video onto the canvas element using the <code>drawImage()</code> method.</p>
-
-    <p>The variables <code>canvas</code>, <code>video</code> and <code>stream</code> are in global scope, so you can
-        inspect them from the console.</p>
-
-    <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas"
-       title="Stolen from GitHub" id="viewSource">Stolen From GitHub</a>
+    <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas" title="Stolen from GitHub"
+        id="viewSource">Stolen From GitHub</a>
 
 </div>
 
@@ -20,25 +16,31 @@
     canvas.width = 480;
     canvas.height = 360;
 
-    const button = document.querySelector('button');
-    button.onclick = function() {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+    const button = document.querySelector('.snapShot');
+    button.onclick = function () {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
     };
 
+    var link = document.querySelector('.save');
+        link.addEventListener('click', function (ev) {
+        link.href = canvas.toDataURL();
+        link.download = "mypainting.png";
+    }, false);
+
     const constraints = {
-    audio: false,
-    video: { facingMode: { exact: "environment" } } 
+        audio: false,
+        video: true// { facingMode: { exact: "environment" } }
     };
 
     function handleSuccess(stream) {
-    window.stream = stream; // make stream available to browser console
-    video.srcObject = stream;
+        window.stream = stream; // make stream available to browser console
+        video.srcObject = stream;
     }
 
     function handleError(error) {
-    console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
+        console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
     }
 
     navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
