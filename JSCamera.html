@@ -1,15 +1,45 @@
-<input type="file" accept="image/*;capture=camera">
+<div id="container">
 
-<video autoplay></video>
+    <video playsinline autoplay></video>
+    <button>Take snapshot</button>
+    <canvas></canvas>
+
+    <p>Draw a frame from the video onto the canvas element using the <code>drawImage()</code> method.</p>
+
+    <p>The variables <code>canvas</code>, <code>video</code> and <code>stream</code> are in global scope, so you can
+        inspect them from the console.</p>
+
+    <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas"
+       title="Stolen from GitHub" id="viewSource">Stolen From GitHub</a>
+
+</div>
 
 <script>
-const constraints = {
-  video: 
-  { facingMode: { exact: "environment" } } 
-};
+    const video = document.querySelector('video');
+    const canvas = window.canvas = document.querySelector('canvas');
+    canvas.width = 480;
+    canvas.height = 360;
 
-const video = document.querySelector('video');
+    const button = document.querySelector('button');
+    button.onclick = function() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+    };
 
-navigator.mediaDevices.getUserMedia(constraints).
-  then((stream) => {video.srcObject = stream});
+    const constraints = {
+    audio: false,
+    video: { facingMode: { exact: "environment" } } 
+    };
+
+    function handleSuccess(stream) {
+    window.stream = stream; // make stream available to browser console
+    video.srcObject = stream;
+    }
+
+    function handleError(error) {
+    console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
+    }
+
+    navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
 </script>
