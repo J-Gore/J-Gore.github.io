@@ -55,12 +55,14 @@
             <label for="videoSource">Video source: </label><select id="videoSource"></select>
         </div>
 
-        <video class="mirrored" playsinline autoplay></video>
+        <video class="mirrored user" playsinline autoplay></video>
         <canvas class="hidden"></canvas>
 
         <button class="snapShot">Take snapshot</button>
 
         <button><a class="save">save image</a></button>
+
+        <button class="switch">Switch Camera</button>
 
         <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas"
             title="Stolen from GitHub" id="viewSource">Stolen From GitHub</a>
@@ -76,18 +78,31 @@
     const video = document.querySelector('video');
     const canvas = window.canvas = document.querySelector('canvas');
     const videoSelect = document.querySelector('select#videoSource');
+    const switchCamera = document.querySelector('.switch');
 
     canvas.width = 480;
     canvas.height = 360;
 
     navigator.mediaDevices.enumerateDevices().then(gotDevices);
 
-    const button = document.querySelector('.snapShot');
-    button.onclick = function () {
+    const snapShot = document.querySelector('.snapShot');
+    snapShot.onclick = function () {
         canvas.classList.remove("hidden");
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+    };
+
+    switchCamera.onclick = function () {
+        if (video.classList.contains("user")) {
+            video.classList.remove("user");
+            video.classList.remove("mirrored");
+            start(rearCameraConstraints);
+        } else {
+            video.classList.add("user");
+            video.classList.add("mirrored");
+            start(frontCameraConstraints);
+        }
     };
 
     var link = document.querySelector('.save');
@@ -96,9 +111,14 @@
         link.download = "mypainting.png";
     }, false);
 
-    const constraints = {
+    const rearCameraConstraints = {
         audio: false,
-        video: true// { facingMode: { exact: "environment" } }
+        video: { facingMode: { exact: "environment" } }
+    };
+
+    const frontCameraConstraints = {
+        audio: false,
+        video: { facingMode: { exact: "user" } }
     };
 
     function handleSuccess(stream) {
@@ -130,17 +150,13 @@
         }
     }
 
-    function start() {
+    function start(constraints) {
         const videoSource = videoSelect.value;
-        if(!videoSelect.textContent.includes("back")){
+        if (!videoSelect.textContent.includes("back")) {
             canvas.classList.remove("mirrored");
-        }else{
+        } else {
             canvas.classList.add("mirrored");
         }
-
-        const constraints = {
-            video: { deviceId: { exact: videoSource } }
-        };
 
         navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
 
