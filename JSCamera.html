@@ -26,8 +26,8 @@
         }
 
         video {
-            width: -webkit-fill-available;
             max-height: 50em;
+            min-width: 70em;
         }
 
         .hidden {
@@ -35,7 +35,7 @@
         }
 
         #container {
-            display: inline-grid;
+            /* display: inline-grid; */
         }
 
         .mirrored {
@@ -45,33 +45,37 @@
             -moz-transform: rotateY(180deg);
             /* Firefox */
         }
+        
+        .controls {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        button{
+            height: 10em;
+            width: -webkit-fill-available;
+        }
+        
     </style>
 </head>
 
 <body>
     <div id="container">
 
-        <div class="select hidden">
-            <label for="videoSource">Video source: </label><select id="videoSource"></select>
-        </div>
-
         <video class="mirrored user" playsinline autoplay></video>
         <canvas class="hidden"></canvas>
 
-        <button class="snapShot">Take snapshot</button>
+        <div class="controls">
+            <button class="snapShot">Take snapshot</button>
 
-        <button><a class="save">save image</a></button>
+            <button><a class="save">Save image</a></button>
 
-        <button class="switch">Switch Camera</button>
-
-        <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas"
-            title="Stolen from GitHub" id="viewSource">Stolen From GitHub</a>
+            <button class="switch">Switch Camera</button>
+        </div>
+        <!-- <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas"
+            title="Stolen from GitHub" id="viewSource">Stolen From GitHub</a> -->
 
     </div>
-
-    <!-- <div class="box">
-        <p class="left">[</p><p>]</p>
-    </div> -->
 </body>
 
 <script>
@@ -130,7 +134,7 @@
         console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
     }
 
-    navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+    navigator.mediaDevices.getUserMedia(frontCameraConstraints).then(handleSuccess).catch(handleError);
 
     function gotDevices(deviceInfos) {
         for (let i = 0; i !== deviceInfos.length; ++i) {
