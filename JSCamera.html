@@ -132,6 +132,11 @@
 
     function start() {
         const videoSource = videoSelect.value;
+        if(!videoSelect.textContent.includes("back")){
+            canvas.classList.remove("mirrored");
+        }else{
+            canvas.classList.add("mirrored");
+        }
 
         const constraints = {
             video: { deviceId: { exact: videoSource } }
