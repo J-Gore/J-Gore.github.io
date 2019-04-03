@@ -87,7 +87,7 @@
     canvas.width = 480;
     canvas.height = 360;
 
-    navigator.mediaDevices.enumerateDevices().then(gotDevices);
+    //navigator.mediaDevices.enumerateDevices().then(gotDevices);
 
     const snapShot = document.querySelector('.snapShot');
     snapShot.onclick = function () {
@@ -134,39 +134,39 @@
         console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
     }
 
-    
+    start(frontCameraConstraints);
 
-    function gotDevices(deviceInfos) {
-        for (let i = 0; i !== deviceInfos.length; ++i) {
-            const deviceInfo = deviceInfos[i];
-            const option = document.createElement('option');
-            option.value = deviceInfo.deviceId;
+    // function gotDevices(deviceInfos) {
+    //     for (let i = 0; i !== deviceInfos.length; ++i) {
+    //         const deviceInfo = deviceInfos[i];
+    //         const option = document.createElement('option');
+    //         option.value = deviceInfo.deviceId;
 
-            if (deviceInfo.kind === 'videoinput') {
-                option.text = deviceInfo.label || `camera ${videoSelect.length + 1}`;
-                videoSelect.appendChild(option);
-            } else {
-                console.log('Some other kind of source/device: ', deviceInfo);
-            }
-        }
-        if (videoSelect.children.length > 1) {
-            videoSelect.parentElement.classList.remove("hidden");
-        }
-    }
+    //         if (deviceInfo.kind === 'videoinput') {
+    //             option.text = deviceInfo.label || `camera ${videoSelect.length + 1}`;
+    //             videoSelect.appendChild(option);
+    //         } else {
+    //             console.log('Some other kind of source/device: ', deviceInfo);
+    //         }
+    //     }
+    //     if (videoSelect.children.length > 1) {
+    //         videoSelect.parentElement.classList.remove("hidden");
+    //     }
+    // }
 
     function start(constraints) {
-        const videoSource = videoSelect.value;
-        if (!videoSelect.textContent.includes("back")) {
-            canvas.classList.remove("mirrored");
-        } else {
-            canvas.classList.add("mirrored");
-        }
+       // const videoSource = videoSelect.value;
+        // if (!videoSelect.textContent.includes("back")) {
+        //     canvas.classList.remove("mirrored");
+        // } else {
+        //     canvas.classList.add("mirrored");
+        // }
 
         navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
 
     }
 
-    videoSelect.onchange = start;
+   // videoSelect.onchange = start;
 </script>
 
 </html>
