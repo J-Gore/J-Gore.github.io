@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <style>
         .box {
@@ -36,6 +37,14 @@
         #container {
             display: inline-grid;
         }
+
+        .mirrored {
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+            /* Safari and Chrome */
+            -moz-transform: rotateY(180deg);
+            /* Firefox */
+        }
     </style>
 </head>
 
@@ -46,11 +55,11 @@
             <label for="videoSource">Video source: </label><select id="videoSource"></select>
         </div>
 
-        <video playsinline autoplay></video>
+        <video class="mirrored" playsinline autoplay></video>
         <canvas class="hidden"></canvas>
 
         <button class="snapShot">Take snapshot</button>
-        
+
         <button><a class="save">save image</a></button>
 
         <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas"
@@ -72,7 +81,7 @@
     canvas.height = 360;
 
     navigator.mediaDevices.enumerateDevices().then(gotDevices);
-    
+
     const button = document.querySelector('.snapShot');
     button.onclick = function () {
         canvas.classList.remove("hidden");
@@ -116,7 +125,7 @@
                 console.log('Some other kind of source/device: ', deviceInfo);
             }
         }
-        if(videoSelect.children.length > 1){
+        if (videoSelect.children.length > 1) {
             videoSelect.parentElement.classList.remove("hidden");
         }
     }
