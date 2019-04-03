@@ -90,7 +90,9 @@
     //navigator.mediaDevices.enumerateDevices().then(gotDevices);
 
     const snapShot = document.querySelector('.snapShot');
+
     snapShot.onclick = function () {
+        video.classList.add("hidden");
         canvas.classList.remove("hidden");
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
