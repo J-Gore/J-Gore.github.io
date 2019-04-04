@@ -1,73 +1,7 @@
 <html>
-
 <head>
-    <style>
-        .box {
-            position: absolute;
-            font-size: 500;
-            top: -285px;
-            line-height: 0;
-            color: white;
-            overflow: hidden;
-            display: flex;
-        }
-
-        .left {
-            position: absolute;
-            left: 3em;
-            top: 5em;
-            height: 40em;
-            z-index: 1000;
-        }
-        .right {
-            position: absolute;
-            right: 3em;
-            top: 5em;
-            height: 40em;
-            z-index: 1000;
-        }
-
-        #videoSource {
-            z-index: 1000;
-        }
-
-        body {
-            display: flex;
-            justify-content: center;
-        }
-
-        video {
-            max-height: 50em;
-            min-width: 70em;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        #container {
-            position: relative;
-        }
-
-        .mirrored {
-            transform: rotateY(180deg);
-            -webkit-transform: rotateY(180deg);
-            /* Safari and Chrome */
-            -moz-transform: rotateY(180deg);
-            /* Firefox */
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: space-evenly;
-        }
-
-        button{
-            height: 10em;
-            width: -webkit-fill-available;
-        }
-        
-    </style>
+    <link rel="stylesheet" type="text/css" href="JSCamera.css">
+    <title>Card Upload</title>
 </head>
 
 <body>
@@ -79,11 +13,11 @@
         <canvas class="hidden"></canvas>
 
         <div class="controls">
-            <button class="snapShot">Take snapshot</button>
+            <button class="snapShot">📷</button>
 
-            <button><a class="save">Save image</a></button>
+            <a class="save"><button>💾</button></a>
 
-            <button class="switch">Switch Camera</button>
+            <button class="switch">🔄</button>
         </div>
         <!-- <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas"
             title="Stolen from GitHub" id="viewSource">Stolen From GitHub</a> -->
@@ -97,8 +31,6 @@
     const videoSelect = document.querySelector('select#videoSource');
     const switchCamera = document.querySelector('.switch');
 
-   
-
     //navigator.mediaDevices.enumerateDevices().then(gotDevices);
 
     const snapShot = document.querySelector('.snapShot');
@@ -108,7 +40,7 @@
         canvas.classList.remove("hidden");
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        canvas.getContext('2d').drawImage(video, 50, 0, 500, 500);
     };
 
     switchCamera.onclick = function () {
@@ -169,15 +101,7 @@
     // }
 
     function start(constraints) {
-       // const videoSource = videoSelect.value;
-        // if (!videoSelect.textContent.includes("back")) {
-        //     canvas.classList.remove("mirrored");
-        // } else {
-        //     canvas.classList.add("mirrored");
-        // }
-
         navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
-
     }
 
    // videoSelect.onchange = start;
