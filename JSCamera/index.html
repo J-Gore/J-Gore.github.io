@@ -42,8 +42,10 @@
     const videoSelect = document.querySelector('select#videoSource');
     const switchCamera = document.querySelector('.switch');
     const deets = document.querySelector('.deets');
+    const container = document.querySelector('#container');
 
     const snapShot = document.querySelector('.snapShot');
+    var svg = document.querySelector('.boundingSvg');
 
     var width;
     var height;
@@ -51,6 +53,7 @@
     var cropStartY;
 
     snapShot.onclick = function () {    
+        svg.classList.add("hidden");
         calculateBoundingBox();
         console.log("Taking a picture");         
         canvas.width = width;
@@ -59,7 +62,7 @@
         video.classList.add("hidden");
         canvas.classList.remove("hidden");
                      
-        canvas.getContext('2d').drawImage(video, 0, cropStartY, width, cardHeight, 0, cropStartY, width, cardHeight);
+        canvas.getContext('2d').drawImage(video, 0, cropStartY, width, cardHeight, 0, 0, width, cardHeight);
 
         deets.innerText = "Video Height: " + height +
                         " Video Width: " + width +
@@ -72,8 +75,9 @@
     });
 
     function calculateBoundingBox() {
+        container.width = video.width;
         console.log("calculating bounding box");
-        var svg = document.querySelector('.boundingSvg');
+        
         var topLine = document.querySelector('.topLine');
         var bottomLine = document.querySelector('.bottomLine');
         var leftLine = document.querySelector('.leftLine');
@@ -92,6 +96,11 @@
         topLine.setAttribute("y1", cropStartY);
         topLine.setAttribute("x2", width);
         topLine.setAttribute("y2", cropStartY);
+
+        bottomLine.setAttribute("x1", 0);
+        bottomLine.setAttribute("y1", cropStartY + cardHeight);
+        bottomLine.setAttribute("x2", width);
+        bottomLine.setAttribute("y2", cropStartY + cardHeight);
 
         deets.innerText = "Video Height: " + height +
                         " Video Width: " + width +
