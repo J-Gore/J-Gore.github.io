@@ -21,6 +21,7 @@
             <button class="switch">🔄</button>
         </div>
 
+        <p class="deets"></p>
         
         <!-- <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas"
             title="Stolen from GitHub" id="viewSource">Stolen From GitHub</a> -->
@@ -33,15 +34,14 @@
     const canvas = window.canvas = document.querySelector('canvas');
     const videoSelect = document.querySelector('select#videoSource');
     const switchCamera = document.querySelector('.switch');
-
-    //navigator.mediaDevices.enumerateDevices().then(gotDevices);
+    const deets = document.querySelector('.deets');
 
     const snapShot = document.querySelector('.snapShot');
 
     snapShot.onclick = function () {
         var width = video.videoWidth;
         var height = video.videoHeight;
-
+        
         canvas.width = width;
         canvas.height = height;
 
@@ -55,7 +55,11 @@
         canvas.height = cardHeight;
 
         canvas.getContext('2d').drawImage(video, 0, cropStartY, width, cardHeight, 0, cropStartY, width, cardHeight);
-        //canvas.getContext('2d').drawImage(video,50, 0, 500, 500, 50, 0, 500, 500);
+
+        deets.innerText = "Video Height: " + height +
+                        " Video Width: " + width +
+                        " Card Height: " + cardHeight + 
+                        " Crop Start Y: " + cropStartY
     };
 
 
