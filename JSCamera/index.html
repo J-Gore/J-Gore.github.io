@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <link rel="stylesheet" type="text/css" href="JSCamera.css">
     <title>Card Upload</title>
@@ -6,8 +7,8 @@
 
 <body>
     <div id="container">
-        <image class="left" src="boundary.svg"></image>
-        <image class="right mirrored" src="boundary.svg"></image>
+        <image class="left hidden" src="boundary.svg"></image>
+        <image class="right mirrored hidden" src="boundary.svg"></image>
 
         <video class="mirrored user" playsinline autoplay></video>
         <canvas class="hidden"></canvas>
@@ -19,6 +20,8 @@
 
             <button class="switch">🔄</button>
         </div>
+
+        
         <!-- <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas"
             title="Stolen from GitHub" id="viewSource">Stolen From GitHub</a> -->
 
@@ -36,12 +39,26 @@
     const snapShot = document.querySelector('.snapShot');
 
     snapShot.onclick = function () {
-        video.classList.add("hidden");
+        var width = video.videoWidth;
+        var height = video.videoHeight;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        video.classList.add("hidden");       
         canvas.classList.remove("hidden");
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video,50, 0, 500, 500, 50, 0, 500, 500);
+               
+        var cardHeight = width * 0.63;
+        var cropStartY = height * 0.5 - cardHeight * 0.5;
+        
+        canvas.width = width;
+        canvas.height = cardHeight;
+
+        canvas.getContext('2d').drawImage(video, 0, cropStartY, width, cardHeight, 0, cropStartY, width, cardHeight);
+        //canvas.getContext('2d').drawImage(video,50, 0, 500, 500, 50, 0, 500, 500);
     };
+
+
 
     switchCamera.onclick = function () {
         if (video.classList.contains("user")) {
@@ -102,6 +119,7 @@
 
     function start(constraints) {
         navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+
     }
 
    // videoSelect.onchange = start;
