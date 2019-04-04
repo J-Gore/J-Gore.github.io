@@ -1,0 +1,63 @@
+.box {
+    position: absolute;
+    font-size: 500;
+    top: -285px;
+    line-height: 0;
+    color: white;
+    overflow: hidden;
+    display: flex;
+}
+
+.left {
+    position: absolute;
+    left: 3em;
+    top: 5em;
+    height: 40em;
+    z-index: 1000;
+}
+.right {
+    position: absolute;
+    right: 3em;
+    top: 5em;
+    height: 40em;
+    z-index: 1000;
+}
+
+#videoSource {
+    z-index: 1000;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+video {
+    max-height: 50em;
+    min-width: 70em;
+}
+
+.hidden {
+    display: none;
+}
+
+#container {
+    position: relative;
+}
+
+.mirrored {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    /* Safari and Chrome */
+    -moz-transform: rotateY(180deg);
+    /* Firefox */
+}
+
+.controls {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.controls button{
+    font-size: 5em;
+}
