@@ -21,6 +21,13 @@
             <button class="switch">🔄</button>
         </div>
 
+        <svg class="boundingSvg" width="20" height="20">
+            <line class="topLine" x1="0" y1="0" x2="0" y2="0" />
+            <line class="bottomLine" x1="0" y1="0" x2="0" y2="0" />
+            <line class="leftLine" x1="0" y1="0" x2="0" y2="0" />
+            <line class="rightLine" x1="0" y1="0" x2="0" y2="0" />
+        </svg>
+
         <p class="deets"></p>
         
         <!-- <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas"
@@ -38,22 +45,20 @@
 
     const snapShot = document.querySelector('.snapShot');
 
-    snapShot.onclick = function () {
-        var width = video.videoWidth;
-        var height = video.videoHeight;
-        
-        canvas.width = width;
-        canvas.height = height;
+    var width;
+    var height;
+    var cardHeight;
+    var cropStartY;
 
-        video.classList.add("hidden");       
-        canvas.classList.remove("hidden");
-               
-        var cardHeight = width * 0.63;
-        var cropStartY = height * 0.5 - cardHeight * 0.5;
-        
+    snapShot.onclick = function () {    
+        calculateBoundingBox();
+        console.log("Taking a picture");         
         canvas.width = width;
         canvas.height = cardHeight;
 
+        video.classList.add("hidden");
+        canvas.classList.remove("hidden");
+                     
         canvas.getContext('2d').drawImage(video, 0, cropStartY, width, cardHeight, 0, cropStartY, width, cardHeight);
 
         deets.innerText = "Video Height: " + height +
@@ -62,7 +67,37 @@
                         " Crop Start Y: " + cropStartY
     };
 
+    video.addEventListener("play", function() {
+        calculateBoundingBox();
+    });
 
+    function calculateBoundingBox() {
+        console.log("calculating bounding box");
+        var svg = document.querySelector('.boundingSvg');
+        var topLine = document.querySelector('.topLine');
+        var bottomLine = document.querySelector('.bottomLine');
+        var leftLine = document.querySelector('.leftLine');
+        var rightLine = document.querySelector('.rightLine');
+
+        width = video.videoWidth;
+        height = video.videoHeight;
+
+        svg.setAttribute("width", width);
+        svg.setAttribute("height", height);
+
+        cardHeight = width * 0.63;
+        cropStartY = height * 0.5 - cardHeight * 0.5;
+
+        topLine.setAttribute("x1", 0);
+        topLine.setAttribute("y1", cropStartY);
+        topLine.setAttribute("x2", width);
+        topLine.setAttribute("y2", cropStartY);
+
+        deets.innerText = "Video Height: " + height +
+                        " Video Width: " + width +
+                        " Card Height: " + cardHeight + 
+                        " Crop Start Y: " + cropStartY
+    };
 
     switchCamera.onclick = function () {
         if (video.classList.contains("user")) {
@@ -92,6 +127,11 @@
         video: { facingMode: { exact: "user" } }
     };
 
+    const generalConstraints = {
+        audio: false,
+        video: true
+    }
+
     function handleSuccess(stream) {
         window.stream = stream; // make stream available to browser console
         video.srcObject = stream;
@@ -101,32 +141,11 @@
         console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
     }
 
-    start(frontCameraConstraints);
-
-    // function gotDevices(deviceInfos) {
-    //     for (let i = 0; i !== deviceInfos.length; ++i) {
-    //         const deviceInfo = deviceInfos[i];
-    //         const option = document.createElement('option');
-    //         option.value = deviceInfo.deviceId;
-
-    //         if (deviceInfo.kind === 'videoinput') {
-    //             option.text = deviceInfo.label || `camera ${videoSelect.length + 1}`;
-    //             videoSelect.appendChild(option);
-    //         } else {
-    //             console.log('Some other kind of source/device: ', deviceInfo);
-    //         }
-    //     }
-    //     if (videoSelect.children.length > 1) {
-    //         videoSelect.parentElement.classList.remove("hidden");
-    //     }
-    // }
+    start(generalConstraints);
 
     function start(constraints) {
         navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
-
     }
-
-   // videoSelect.onchange = start;
 </script>
 
 </html>

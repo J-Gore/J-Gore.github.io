@@ -61,3 +61,14 @@ video {
 .controls button{
     font-size: 5em;
 }
+
+line {
+    stroke:rgb(255,0,0);
+    stroke-width:2
+}
+
+.boundingSvg {
+    position: absolute;
+    top: 0;
+    z-index: 1000;
+}
