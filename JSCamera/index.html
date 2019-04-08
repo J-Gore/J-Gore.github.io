@@ -7,11 +7,6 @@
 
 <body>
     <div id="container">
-        
-
-        <image class="left hidden" src="boundary.svg"></image>
-        <image class="right mirrored hidden" src="boundary.svg"></image>
-
         <video class="mirrored user" playsinline autoplay></video>
         <canvas class="hidden"></canvas>
 
@@ -23,7 +18,7 @@
             <button class="switch">🔄</button>
         </div>
 
-        <svg class="boundingSvg" width="20" height="20">
+        <svg class="boundingSvg">
             <line class="topLine" x1="0" y1="0" x2="0" y2="0" />
             <line class="bottomLine" x1="0" y1="0" x2="0" y2="0" />
             <line class="leftLine" x1="0" y1="0" x2="0" y2="0" />
@@ -88,10 +83,7 @@
         var leftLine = document.querySelector('.leftLine');
         var rightLine = document.querySelector('.rightLine');
 
-        //width = video.videoWidth;
         width = parseInt(window.getComputedStyle(video).width);
-
-        //height = video.videoHeight;
         height = parseInt(window.getComputedStyle(video).height);
 
         svg.setAttribute("width", width);
@@ -110,10 +102,12 @@
         bottomLine.setAttribute("x2", width);
         bottomLine.setAttribute("y2", cropStartY + cardHeight);
 
-        deets.innerText = "Video Height: " + height +
-                        " Video Width: " + width +
-                        " Card Height: " + cardHeight + 
-                        " Crop Start Y: " + cropStartY
+        deets.innerText = "Video Canvas Height: " + height +
+                        " Video Canvas Width: " + width +
+                        " Card Cnavas Height: " + cardHeight + 
+                        " Canvas Crop Start Y: " + cropStartY +
+                        " Vertical Resolution: " + video.videoHeight + 
+                        " Horizontal Resolution: " + video.videoWidth
     };
 
     switchCamera.onclick = function () {
