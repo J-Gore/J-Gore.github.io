@@ -9,7 +9,7 @@
     <div id="container">
         <video class="mirrored user" playsinline autoplay></video>
         <canvas class="hidden"></canvas>
-        <canvas class="highres" ></canvas>
+        <canvas class="highres"></canvas>
         <div class="controls">
             <button class="snapShot">📷</button>
 
@@ -48,7 +48,12 @@
     var cardHeight;
     var cropStartY;
 
-    snapShot.onclick = function () {
+    snapShot.addEventListener("click", TakePhoto);
+    video.addEventListener("click", TakePhoto);
+    svg.addEventListener("click", TakePhoto);
+    video.addEventListener("play", calculateBoundingBox);
+
+    function TakePhoto() {
         svg.classList.add("hidden");
         calculateBoundingBox();
         console.log("Taking a picture");
@@ -75,11 +80,7 @@
             " Video Width: " + width +
             " Card Height: " + cardHeight +
             " Crop Start Y: " + cropStartY
-    };
-
-    video.addEventListener("play", function () {
-        calculateBoundingBox();
-    });
+    }; 
 
     function calculateBoundingBox() {
         console.log("calculating bounding box");
