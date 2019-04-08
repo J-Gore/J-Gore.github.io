@@ -7,6 +7,8 @@
 
 <body>
     <div id="container">
+        
+
         <image class="left hidden" src="boundary.svg"></image>
         <image class="right mirrored hidden" src="boundary.svg"></image>
 
@@ -27,12 +29,8 @@
             <line class="leftLine" x1="0" y1="0" x2="0" y2="0" />
             <line class="rightLine" x1="0" y1="0" x2="0" y2="0" />
         </svg>
-
-        <p class="deets"></p>
         
-        <!-- <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/canvas"
-            title="Stolen from GitHub" id="viewSource">Stolen From GitHub</a> -->
-
+        <p class="deets"></p>
     </div>
 </body>
 
@@ -83,8 +81,11 @@
         var leftLine = document.querySelector('.leftLine');
         var rightLine = document.querySelector('.rightLine');
 
-        width = video.videoWidth;
-        height = video.videoHeight;
+        //width = video.videoWidth;
+        width = parseInt(window.getComputedStyle(video).width);
+
+        //height = video.videoHeight;
+        height = parseInt(window.getComputedStyle(video).height);
 
         svg.setAttribute("width", width);
         svg.setAttribute("height", height);

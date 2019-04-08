@@ -23,18 +23,14 @@
     z-index: 1000;
 }
 
-#videoSource {
+video {
     z-index: 1000;
+    width: 100%;
 }
 
 body {
     display: flex;
     justify-content: center;
-}
-
-video {
-    /* max-height: 50em; */
-    /* min-width: 70em; */
 }
 
 .hidden {
@@ -43,6 +39,7 @@ video {
 
 #container {
     position: relative;
+    width: 75em; 
 }
 
 .mirrored {
