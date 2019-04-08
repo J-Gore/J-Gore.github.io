@@ -24,7 +24,7 @@
             <line class="leftLine" x1="0" y1="0" x2="0" y2="0" />
             <line class="rightLine" x1="0" y1="0" x2="0" y2="0" />
         </svg>
-        
+
         <p class="deets"></p>
     </div>
 </body>
@@ -47,10 +47,10 @@
     var cardHeight;
     var cropStartY;
 
-    snapShot.onclick = function () {    
+    snapShot.onclick = function () {
         svg.classList.add("hidden");
         calculateBoundingBox();
-        console.log("Taking a picture");    
+        console.log("Taking a picture");
 
         var actualWidth = video.videoWidth;
         var actualHeight = video.videoHeight;
@@ -62,22 +62,22 @@
 
         video.classList.add("hidden");
         canvas.classList.remove("hidden");
-                     
+
         canvas.getContext('2d').drawImage(video, 0, actualCropStartY, actualWidth, actualCardHeight, 0, 0, width, cardHeight);
 
         deets.innerText = "Video Height: " + height +
-                        " Video Width: " + width +
-                        " Card Height: " + cardHeight + 
-                        " Crop Start Y: " + cropStartY
+            " Video Width: " + width +
+            " Card Height: " + cardHeight +
+            " Crop Start Y: " + cropStartY
     };
 
-    video.addEventListener("play", function() {
+    video.addEventListener("play", function () {
         calculateBoundingBox();
     });
 
     function calculateBoundingBox() {
         console.log("calculating bounding box");
-        
+
         var topLine = document.querySelector('.topLine');
         var bottomLine = document.querySelector('.bottomLine');
         var leftLine = document.querySelector('.leftLine');
@@ -103,11 +103,11 @@
         bottomLine.setAttribute("y2", cropStartY + cardHeight);
 
         deets.innerText = "Video Canvas Height: " + height +
-                        " Video Canvas Width: " + width +
-                        " Card Cnavas Height: " + cardHeight + 
-                        " Canvas Crop Start Y: " + cropStartY +
-                        " Vertical Resolution: " + video.videoHeight + 
-                        " Horizontal Resolution: " + video.videoWidth
+            " Video Canvas Width: " + width +
+            " Card Canvas Height: " + cardHeight +
+            " Canvas Crop Start Y: " + cropStartY +
+            " Vertical Resolution: " + video.videoHeight +
+            " Horizontal Resolution: " + video.videoWidth
     };
 
     switchCamera.onclick = function () {
@@ -142,6 +142,33 @@
         audio: false,
         video: true
     }
+    const fullHdConstraints = {
+        video: { width: 1920, height: 1080 }
+    };
+
+    const hdConstraints = {
+        video: { width: { exact: 1280 }, height: { exact: 720 } }
+    };
+
+    const moreConstraints = {
+        video: {
+            width: { ideal: 4096 },
+            height: { ideal: 2160 }
+        }
+    }
+
+    const loadsOfConstraints = {
+        video: {
+            optional: [
+                { minWidth: 320 },
+                { minWidth: 640 },
+                { minWidth: 1024 },
+                { minWidth: 1280 },
+                { minWidth: 1920 },
+                { minWidth: 2560 },
+            ]
+        }
+    }
 
     function handleSuccess(stream) {
         window.stream = stream; // make stream available to browser console
@@ -152,7 +179,7 @@
         console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
     }
 
-    start(generalConstraints);
+    start(moreConstraints);
 
     function start(constraints) {
         navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
