@@ -9,7 +9,7 @@
     <div id="container">
         <video class="mirrored user" playsinline autoplay></video>
         <canvas class="hidden"></canvas>
-        <canvas class="highres"></canvas>
+        <canvas class="highres hidden"></canvas>
         <div class="controls">
             <button class="snapShot">📷</button>
 
@@ -37,6 +37,8 @@
     const deets = document.querySelector('.deets');
     const container = document.querySelector('#container');
     const HDCanvas = document.querySelector('.highres');
+    const maxMediaAttempts = 5;
+    var mediaAttempts = 0;
 
     const takePhotoButton = document.querySelector('.snapShot');
     var svg = document.querySelector('.boundingSvg');
@@ -54,6 +56,7 @@
     video.addEventListener("play", calculateBoundingBox);
 
     function TakePhoto() {
+
         svg.classList.add("hidden");
         calculateBoundingBox();
         console.log("Taking a picture");
@@ -109,6 +112,16 @@
         bottomLine.setAttribute("x2", videoDisplayWidth);
         bottomLine.setAttribute("y2", cropStartY + videoDisplayCardHeight);
 
+        // leftLine.setAttribute("x1", 0);
+        // leftLine.setAttribute("y1", cropStartY + videoDisplayCardHeight);
+        // leftLine.setAttribute("x2", videoDisplayWidth);
+        // leftLine.setAttribute("y2", cropStartY + videoDisplayCardHeight);
+
+        // rightLine.setAttribute("x1", 0);
+        // rightLine.setAttribute("y1", cropStartY + videoDisplayCardHeight);
+        // rightLine.setAttribute("x2", videoDisplayWidth);
+        // rightLine.setAttribute("y2", cropStartY + videoDisplayCardHeight);
+
         deets.innerText = "Video Canvas Height: " + videoDisplayHeight +
             " Video Canvas Width: " + videoDisplayWidth +
             " Card Canvas Height: " + videoDisplayCardHeight +
@@ -131,7 +144,7 @@
 
     var link = document.querySelector('.save');
     link.addEventListener('click', function (ev) {
-        link.href = canvas.toDataURL();
+        link.href = HDCanvas.toDataURL();
         link.download = "mypainting.png";
     }, false);
 
@@ -157,8 +170,17 @@
         video: { width: { exact: 1280 }, height: { exact: 720 } }
     };
 
-    const moreConstraints = {
+    const HDEnvironmentConstraints = {
         video: {
+            facingMode: { exact: "environment" },
+            width: { ideal: 4096 },
+            height: { ideal: 2160 }
+        }
+    }
+
+    const HDUserConstraints = {
+        video: {
+            facingMode: { exact: "user" },
             width: { ideal: 4096 },
             height: { ideal: 2160 }
         }
@@ -183,12 +205,21 @@
     }
 
     function handleError(error) {
+        mediaAttempts += 1;
         console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
+        if(error.name === "OverconstrainedError" && mediaAttempts < maxMediaAttempts){
+            start(HDUserConstraints);
+        }
     }
 
-    start(moreConstraints);
+    start(HDEnvironmentConstraints);
 
     function start(constraints) {
+        if(constraints.video.facingMode.exact === "user"){
+            canvas.classList.add("mirrored");
+        }else if (constraints.video.facingMode.exact === "user"){
+            canvas.classList.remove("mirrored");
+        }
         navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
     }
 </script>
