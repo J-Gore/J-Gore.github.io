@@ -9,7 +9,7 @@
     <div id="container">
         <video class="mirrored user" playsinline autoplay></video>
         <canvas class="hidden"></canvas>
-
+        <canvas class="highres" ></canvas>
         <div class="controls">
             <button class="snapShot">📷</button>
 
@@ -36,6 +36,7 @@
     const switchCamera = document.querySelector('.switch');
     const deets = document.querySelector('.deets');
     const container = document.querySelector('#container');
+    const HDCanvas = document.querySelector('.highres');
 
     const snapShot = document.querySelector('.snapShot');
     var svg = document.querySelector('.boundingSvg');
@@ -56,6 +57,11 @@
         var actualHeight = video.videoHeight;
         var actualCardHeight = actualWidth * aspectRatio;
         var actualCropStartY = actualHeight * 0.5 - actualCardHeight * 0.5;
+
+        HDCanvas.width = actualWidth;
+        HDCanvas.height = actualCardHeight;
+        HDCanvas.getContext('2d').drawImage(video, 0, actualCropStartY, actualWidth, actualCardHeight, 0, 0, actualWidth, actualCardHeight);
+
 
         canvas.width = width;
         canvas.height = cardHeight;
