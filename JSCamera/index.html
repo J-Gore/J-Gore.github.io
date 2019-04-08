@@ -38,17 +38,17 @@
     const container = document.querySelector('#container');
     const HDCanvas = document.querySelector('.highres');
 
-    const snapShot = document.querySelector('.snapShot');
+    const takePhotoButton = document.querySelector('.snapShot');
     var svg = document.querySelector('.boundingSvg');
 
     var aspectRatio = 0.63;
 
-    var width;
-    var height;
-    var cardHeight;
+    var videoDisplayWidth;
+    var videoDisplayHeight;
+    var videoDisplayCardHeight;
     var cropStartY;
 
-    snapShot.addEventListener("click", TakePhoto);
+    takePhotoButton.addEventListener("click", TakePhoto);
     video.addEventListener("click", TakePhoto);
     svg.addEventListener("click", TakePhoto);
     video.addEventListener("play", calculateBoundingBox);
@@ -68,17 +68,17 @@
         HDCanvas.getContext('2d').drawImage(video, 0, actualCropStartY, actualWidth, actualCardHeight, 0, 0, actualWidth, actualCardHeight);
 
 
-        canvas.width = width;
-        canvas.height = cardHeight;
+        canvas.width = videoDisplayWidth;
+        canvas.height = videoDisplayCardHeight;
 
         video.classList.add("hidden");
         canvas.classList.remove("hidden");
 
-        canvas.getContext('2d').drawImage(video, 0, actualCropStartY, actualWidth, actualCardHeight, 0, 0, width, cardHeight);
+        canvas.getContext('2d').drawImage(video, 0, actualCropStartY, actualWidth, actualCardHeight, 0, 0, videoDisplayWidth, videoDisplayCardHeight);
 
-        deets.innerText = "Video Height: " + height +
-            " Video Width: " + width +
-            " Card Height: " + cardHeight +
+        deets.innerText = "Video Height: " + videoDisplayHeight +
+            " Video Width: " + videoDisplayWidth +
+            " Card Height: " + videoDisplayCardHeight +
             " Crop Start Y: " + cropStartY
     }; 
 
@@ -90,28 +90,28 @@
         var leftLine = document.querySelector('.leftLine');
         var rightLine = document.querySelector('.rightLine');
 
-        width = parseInt(window.getComputedStyle(video).width);
-        height = parseInt(window.getComputedStyle(video).height);
+        videoDisplayWidth = parseInt(window.getComputedStyle(video).width);
+        videoDisplayHeight = parseInt(window.getComputedStyle(video).height);
 
-        svg.setAttribute("width", width);
-        svg.setAttribute("height", height);
+        svg.setAttribute("width", videoDisplayWidth);
+        svg.setAttribute("height", videoDisplayHeight);
 
-        cardHeight = width * aspectRatio;
-        cropStartY = height * 0.5 - cardHeight * 0.5;
+        videoDisplayCardHeight = videoDisplayWidth * aspectRatio;
+        cropStartY = videoDisplayHeight * 0.5 - videoDisplayCardHeight * 0.5;
 
         topLine.setAttribute("x1", 0);
         topLine.setAttribute("y1", cropStartY);
-        topLine.setAttribute("x2", width);
+        topLine.setAttribute("x2", videoDisplayWidth);
         topLine.setAttribute("y2", cropStartY);
 
         bottomLine.setAttribute("x1", 0);
-        bottomLine.setAttribute("y1", cropStartY + cardHeight);
-        bottomLine.setAttribute("x2", width);
-        bottomLine.setAttribute("y2", cropStartY + cardHeight);
+        bottomLine.setAttribute("y1", cropStartY + videoDisplayCardHeight);
+        bottomLine.setAttribute("x2", videoDisplayWidth);
+        bottomLine.setAttribute("y2", cropStartY + videoDisplayCardHeight);
 
-        deets.innerText = "Video Canvas Height: " + height +
-            " Video Canvas Width: " + width +
-            " Card Canvas Height: " + cardHeight +
+        deets.innerText = "Video Canvas Height: " + videoDisplayHeight +
+            " Video Canvas Width: " + videoDisplayWidth +
+            " Card Canvas Height: " + videoDisplayCardHeight +
             " Canvas Crop Start Y: " + cropStartY +
             " Vertical Resolution: " + video.videoHeight +
             " Horizontal Resolution: " + video.videoWidth
