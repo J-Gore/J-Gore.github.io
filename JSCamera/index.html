@@ -45,6 +45,8 @@
     const snapShot = document.querySelector('.snapShot');
     var svg = document.querySelector('.boundingSvg');
 
+    var aspectRatio = 0.63;
+
     var width;
     var height;
     var cardHeight;
@@ -53,14 +55,20 @@
     snapShot.onclick = function () {    
         svg.classList.add("hidden");
         calculateBoundingBox();
-        console.log("Taking a picture");         
+        console.log("Taking a picture");    
+
+        var actualWidth = video.videoWidth;
+        var actualHeight = video.videoHeight;
+        var actualCardHeight = actualWidth * aspectRatio;
+        var actualCropStartY = actualHeight * 0.5 - actualCardHeight * 0.5;
+
         canvas.width = width;
         canvas.height = cardHeight;
 
         video.classList.add("hidden");
         canvas.classList.remove("hidden");
                      
-        canvas.getContext('2d').drawImage(video, 0, cropStartY, width, cardHeight, 0, 0, width, cardHeight);
+        canvas.getContext('2d').drawImage(video, 0, actualCropStartY, actualWidth, actualCardHeight, 0, 0, width, cardHeight);
 
         deets.innerText = "Video Height: " + height +
                         " Video Width: " + width +
@@ -73,7 +81,6 @@
     });
 
     function calculateBoundingBox() {
-        container.width = video.width;
         console.log("calculating bounding box");
         
         var topLine = document.querySelector('.topLine');
@@ -90,7 +97,7 @@
         svg.setAttribute("width", width);
         svg.setAttribute("height", height);
 
-        cardHeight = width * 0.63;
+        cardHeight = width * aspectRatio;
         cropStartY = height * 0.5 - cardHeight * 0.5;
 
         topLine.setAttribute("x1", 0);
