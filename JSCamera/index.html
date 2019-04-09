@@ -95,11 +95,10 @@
         svg.setAttribute("width", videoDisplayWidth);
         svg.setAttribute("height", videoDisplayHeight);
 
+        videoDisplayCardHeight = videoDisplayWidth * aspectRatio;
+        cropStartY = videoDisplayHeight * 0.5 - videoDisplayCardHeight * 0.5;
+        
         if (cropStartY > 0) {
-
-            videoDisplayCardHeight = videoDisplayWidth * aspectRatio;
-            cropStartY = videoDisplayHeight * 0.5 - videoDisplayCardHeight * 0.5;
-
             topBox.setAttribute("width", videoDisplayWidth);
             topBox.setAttribute("height", cropStartY);
             topBox.setAttribute("x", 0);
