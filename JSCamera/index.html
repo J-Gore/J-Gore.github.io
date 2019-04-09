@@ -216,7 +216,7 @@
         }
         else if (constraints.video.facingMode.exact === "user") {
             canvas.classList.add("mirrored");
-        } else if (constraints.video.facingMode.exact === "user") {
+        } else if (constraints.video.facingMode.exact === "environment") {
             canvas.classList.remove("mirrored");
         }
         navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
