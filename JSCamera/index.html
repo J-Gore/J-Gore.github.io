@@ -7,7 +7,7 @@
 
 <body>
     <div id="container">
-        <video class="mirrored user" playsinline autoplay></video>
+        <video class="" playsinline autoplay></video>
         <canvas class="hidden"></canvas>
         <canvas class="highres hidden"></canvas>
         <div class="controls">
@@ -95,19 +95,22 @@
         svg.setAttribute("width", videoDisplayWidth);
         svg.setAttribute("height", videoDisplayHeight);
 
-        videoDisplayCardHeight = videoDisplayWidth * aspectRatio;
-        cropStartY = videoDisplayHeight * 0.5 - videoDisplayCardHeight * 0.5;
+        if (cropStartY > 0) {
 
-        topBox.setAttribute("width", videoDisplayWidth);
-        topBox.setAttribute("height", cropStartY);
-        topBox.setAttribute("x", 0);
-        topBox.setAttribute("y", 0);
+            videoDisplayCardHeight = videoDisplayWidth * aspectRatio;
+            cropStartY = videoDisplayHeight * 0.5 - videoDisplayCardHeight * 0.5;
 
-        bottomBox.setAttribute("width", videoDisplayWidth);
-        bottomBox.setAttribute("height", cropStartY);
-        bottomBox.setAttribute("x", 0);
-        bottomBox.setAttribute("y", cropStartY + videoDisplayCardHeight);
+            topBox.setAttribute("width", videoDisplayWidth);
+            topBox.setAttribute("height", cropStartY);
+            topBox.setAttribute("x", 0);
+            topBox.setAttribute("y", 0);
 
+            bottomBox.setAttribute("width", videoDisplayWidth);
+            bottomBox.setAttribute("height", cropStartY);
+            bottomBox.setAttribute("x", 0);
+            bottomBox.setAttribute("y", cropStartY + videoDisplayCardHeight);
+
+        }
 
         deets.innerText = "Video Canvas Height: " + videoDisplayHeight +
             " Video Canvas Width: " + videoDisplayWidth +
@@ -211,13 +214,13 @@
     start(HDEnvironmentConstraints);
 
     function start(constraints) {
-        if (typeof constraints.video.facingMode === 'undefined'){
+        if (typeof constraints.video.facingMode === 'undefined') {
 
         }
         else if (constraints.video.facingMode.exact === "user") {
-            canvas.classList.add("mirrored");
+            video.classList.add("mirrored");
         } else if (constraints.video.facingMode.exact === "environment") {
-            canvas.classList.remove("mirrored");
+            video.classList.remove("mirrored");
         }
         navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
     }
