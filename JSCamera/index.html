@@ -19,10 +19,8 @@
         </div>
 
         <svg class="boundingSvg">
-            <line class="topLine" x1="0" y1="0" x2="0" y2="0" />
-            <line class="bottomLine" x1="0" y1="0" x2="0" y2="0" />
-            <line class="leftLine" x1="0" y1="0" x2="0" y2="0" />
-            <line class="rightLine" x1="0" y1="0" x2="0" y2="0" />
+            <rect class="topBox"/>
+			<rect class="bottomBox"/>
         </svg>
 
         <p class="deets"></p>
@@ -88,10 +86,8 @@
     function calculateBoundingBox() {
         console.log("calculating bounding box");
 
-        var topLine = document.querySelector('.topLine');
-        var bottomLine = document.querySelector('.bottomLine');
-        var leftLine = document.querySelector('.leftLine');
-        var rightLine = document.querySelector('.rightLine');
+        var topBox = document.querySelector('.topBox');
+		var bottomBox = document.querySelector('.bottomBox');
 
         videoDisplayWidth = parseInt(window.getComputedStyle(video).width);
         videoDisplayHeight = parseInt(window.getComputedStyle(video).height);
@@ -102,25 +98,16 @@
         videoDisplayCardHeight = videoDisplayWidth * aspectRatio;
         cropStartY = videoDisplayHeight * 0.5 - videoDisplayCardHeight * 0.5;
 
-        topLine.setAttribute("x1", 0);
-        topLine.setAttribute("y1", cropStartY);
-        topLine.setAttribute("x2", videoDisplayWidth);
-        topLine.setAttribute("y2", cropStartY);
+        topBox.setAttribute("width", videoDisplayWidth);
+		topBox.setAttribute("height", cropStartY);
+		topBox.setAttribute("x", 0);
+		topBox.setAttribute("y", 0);
 
-        bottomLine.setAttribute("x1", 0);
-        bottomLine.setAttribute("y1", cropStartY + videoDisplayCardHeight);
-        bottomLine.setAttribute("x2", videoDisplayWidth);
-        bottomLine.setAttribute("y2", cropStartY + videoDisplayCardHeight);
+		bottomBox.setAttribute("width", videoDisplayWidth);
+		bottomBox.setAttribute("height", cropStartY);
+		bottomBox.setAttribute("x", 0);
+		bottomBox.setAttribute("y", cropStartY + videoDisplayCardHeight);
 
-        // leftLine.setAttribute("x1", 0);
-        // leftLine.setAttribute("y1", cropStartY + videoDisplayCardHeight);
-        // leftLine.setAttribute("x2", videoDisplayWidth);
-        // leftLine.setAttribute("y2", cropStartY + videoDisplayCardHeight);
-
-        // rightLine.setAttribute("x1", 0);
-        // rightLine.setAttribute("y1", cropStartY + videoDisplayCardHeight);
-        // rightLine.setAttribute("x2", videoDisplayWidth);
-        // rightLine.setAttribute("y2", cropStartY + videoDisplayCardHeight);
 
         deets.innerText = "Video Canvas Height: " + videoDisplayHeight +
             " Video Canvas Width: " + videoDisplayWidth +

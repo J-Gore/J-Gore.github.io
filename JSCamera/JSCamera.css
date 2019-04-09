@@ -34,9 +34,9 @@ body {
     font-size: 5em;
 }
 
-line {
-    stroke:rgb(255,0,0);
-    stroke-width:2
+rect {
+    fill:rgb(206, 204, 204);
+	fill-opacity: 0.7;
 }
 
 .boundingSvg {
