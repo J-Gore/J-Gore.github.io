@@ -19,8 +19,8 @@
         </div>
 
         <svg class="boundingSvg">
-            <rect class="topBox"/>
-			<rect class="bottomBox"/>
+            <rect class="topBox" />
+            <rect class="bottomBox" />
         </svg>
 
         <p class="deets"></p>
@@ -81,13 +81,13 @@
             " Video Width: " + videoDisplayWidth +
             " Card Height: " + videoDisplayCardHeight +
             " Crop Start Y: " + cropStartY
-    }; 
+    };
 
     function calculateBoundingBox() {
         console.log("calculating bounding box");
 
         var topBox = document.querySelector('.topBox');
-		var bottomBox = document.querySelector('.bottomBox');
+        var bottomBox = document.querySelector('.bottomBox');
 
         videoDisplayWidth = parseInt(window.getComputedStyle(video).width);
         videoDisplayHeight = parseInt(window.getComputedStyle(video).height);
@@ -99,14 +99,14 @@
         cropStartY = videoDisplayHeight * 0.5 - videoDisplayCardHeight * 0.5;
 
         topBox.setAttribute("width", videoDisplayWidth);
-		topBox.setAttribute("height", cropStartY);
-		topBox.setAttribute("x", 0);
-		topBox.setAttribute("y", 0);
+        topBox.setAttribute("height", cropStartY);
+        topBox.setAttribute("x", 0);
+        topBox.setAttribute("y", 0);
 
-		bottomBox.setAttribute("width", videoDisplayWidth);
-		bottomBox.setAttribute("height", cropStartY);
-		bottomBox.setAttribute("x", 0);
-		bottomBox.setAttribute("y", cropStartY + videoDisplayCardHeight);
+        bottomBox.setAttribute("width", videoDisplayWidth);
+        bottomBox.setAttribute("height", cropStartY);
+        bottomBox.setAttribute("x", 0);
+        bottomBox.setAttribute("y", cropStartY + videoDisplayCardHeight);
 
 
         deets.innerText = "Video Canvas Height: " + videoDisplayHeight +
@@ -192,19 +192,31 @@
     }
 
     function handleError(error) {
-        mediaAttempts += 1;
+        console.log(mediaAttempts);
         console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
-        if(error.name === "OverconstrainedError" && mediaAttempts < maxMediaAttempts){
-            start(HDUserConstraints);
+        if (error.name === "OverconstrainedError" && mediaAttempts < maxMediaAttempts) {
+            switch (mediaAttempts) {
+                case 0:
+                    start(HDUserConstraints);
+                    break;
+                case 1:
+                    start(generalConstraints);
+                    break;
+            }
+
         }
+        mediaAttempts += 1;
     }
 
     start(HDEnvironmentConstraints);
 
     function start(constraints) {
-        if(constraints.video.facingMode.exact === "user"){
+        if (typeof constraints.video.facingMode === 'undefined'){
+
+        }
+        else if (constraints.video.facingMode.exact === "user") {
             canvas.classList.add("mirrored");
-        }else if (constraints.video.facingMode.exact === "user"){
+        } else if (constraints.video.facingMode.exact === "user") {
             canvas.classList.remove("mirrored");
         }
         navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
