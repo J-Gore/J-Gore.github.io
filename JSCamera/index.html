@@ -120,7 +120,7 @@
         var bottomBox = document.querySelector('.bottomBox');
 
         videoDisplayWidth = parseInt(window.getComputedStyle(video).width);
-        videoDisplayHeight = Math.ceil(parseFloat(window.getComputedStyle(video).height));
+        videoDisplayHeight = Math.ceil(parseFloat(window.getComputedStyle(video).height)) + 1;
 
         svg.setAttribute("width", videoDisplayWidth);
         svg.setAttribute("height", videoDisplayHeight);
@@ -262,8 +262,8 @@
         }
     }
 
-    //start(HDEnvironmentConstraints);
-    start(testConstraints);
+    start(HDEnvironmentConstraints);
+    //start(testConstraints);
 
     function start(constraints) {
         if (typeof constraints.video.facingMode === 'undefined') {
