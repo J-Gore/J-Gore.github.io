@@ -20,8 +20,19 @@
         </div> -->
 
         <svg class="boundingSvg">
-            <rect class="topBox" />
-            <rect class="bottomBox" />
+            <defs>
+                <linearGradient id="topBoundingGradient" gradientTransform="rotate(90)">
+                    <stop offset="5%" stop-color="black" />
+                    <stop offset="95%" stop-color="black" stop-opacity="0.7" />
+                </linearGradient>
+                <linearGradient id="bottomBoundingGradient" gradientTransform="rotate(90)">
+                    <stop offset="5%" stop-color="black" stop-opacity="0.7" />
+                    <stop offset="95%" stop-color="black" />
+                </linearGradient>
+
+            </defs>
+            <rect class="topBox" fill="url('#topBoundingGradient')" />
+            <rect class="bottomBox" fill="url('#bottomBoundingGradient')" />
             <circle class="outerCircle"></circle>
             <circle class="innerCircle"></circle>
         </svg>
@@ -130,11 +141,11 @@
 
             innerCircle.setAttribute("cx", videoDisplayWidth * 0.5);
             innerCircle.setAttribute("cy", videoDisplayHeight - 0.5 * cropStartY);
-            innerCircle.setAttribute("r", cropStartY * (1/8) - 10);
+            innerCircle.setAttribute("r", cropStartY * (1 / 8) - 10);
 
             outerCircle.setAttribute("cx", videoDisplayWidth * 0.5);
             outerCircle.setAttribute("cy", videoDisplayHeight - 0.5 * cropStartY);
-            outerCircle.setAttribute("r", cropStartY * (1/8));
+            outerCircle.setAttribute("r", cropStartY * (1 / 8));
         }
 
         deets.innerText = "Video Canvas Height: " + videoDisplayHeight +
@@ -241,12 +252,12 @@
             }
         }
 
-        mediaAttempts += 1; 
+        mediaAttempts += 1;
     }
 
     const testConstraints = {
         video: {
-            width: { exact: 303.4},
+            width: { exact: 303.4 },
             height: { exact: 481.5 }
         }
     }

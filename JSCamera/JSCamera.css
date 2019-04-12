@@ -7,6 +7,7 @@ body {
     display: flex;
     justify-content: center;
     margin: 0;
+    background: black;
 }
 
 .hidden {
@@ -35,10 +36,10 @@ body {
     font-size: 5em;
 }
 
-rect {
+/* rect {
     fill:#000000;
 	fill-opacity: 0.7;
-}
+} */
 
 .boundingSvg {
     position: absolute;
