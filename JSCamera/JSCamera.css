@@ -52,6 +52,13 @@ circle {
     stroke-width: 5;
 }
 
-circle.innerCircle{
+circle.innerCircle {
     fill: #ffffff;       
+}
+
+.deets {
+    position: absolute;
+    top:0;
+    color: white;
+    z-index: 3000;
 }

@@ -120,13 +120,13 @@
         var bottomBox = document.querySelector('.bottomBox');
 
         videoDisplayWidth = parseInt(window.getComputedStyle(video).width);
-        videoDisplayHeight = parseInt(window.getComputedStyle(video).height);
+        videoDisplayHeight = Math.ceil(parseFloat(window.getComputedStyle(video).height));
 
         svg.setAttribute("width", videoDisplayWidth);
         svg.setAttribute("height", videoDisplayHeight);
 
-        videoDisplayCardHeight = videoDisplayWidth * aspectRatio;
-        cropStartY = videoDisplayHeight * 0.5 - videoDisplayCardHeight * 0.5;
+        videoDisplayCardHeight = Math.ceil(videoDisplayWidth * aspectRatio);
+        cropStartY = Math.ceil(videoDisplayHeight * 0.5 - videoDisplayCardHeight * 0.5);
 
         if (cropStartY > 0) {
             topBox.setAttribute("width", videoDisplayWidth);
@@ -262,8 +262,8 @@
         }
     }
 
-    start(HDEnvironmentConstraints);
-    //start(testConstraints);
+    //start(HDEnvironmentConstraints);
+    start(testConstraints);
 
     function start(constraints) {
         if (typeof constraints.video.facingMode === 'undefined') {
