@@ -7,20 +7,23 @@
 
 <body>
     <div id="container">
+        <button class="js-try-again hidden">We need to access your camera, click here to try again.</button>
         <video class="" playsinline autoplay></video>
         <canvas class="hidden"></canvas>
         <canvas class="highres hidden"></canvas>
-        <div class="controls">
+        <!-- <div class="controls">
             <button class="snapShot">📷</button>
 
             <a class="save"><button>💾</button></a>
 
             <button class="switch">🔄</button>
-        </div>
+        </div> -->
 
         <svg class="boundingSvg">
             <rect class="topBox" />
             <rect class="bottomBox" />
+            <circle class="outerCircle"></circle>
+            <circle class="innerCircle"></circle>
         </svg>
 
         <p class="deets"></p>
@@ -35,6 +38,11 @@
     const deets = document.querySelector('.deets');
     const container = document.querySelector('#container');
     const HDCanvas = document.querySelector('.highres');
+    const tryAgain = document.querySelector('.js-try-again');
+
+    var innerCircle = document.querySelector('circle.innerCircle');
+    var outerCircle = document.querySelector('circle.outerCircle');
+
     const maxMediaAttempts = 5;
     var mediaAttempts = 0;
 
@@ -48,13 +56,23 @@
     var videoDisplayCardHeight;
     var cropStartY;
 
-    takePhotoButton.addEventListener("click", TakePhoto);
-    video.addEventListener("click", TakePhoto);
-    svg.addEventListener("click", TakePhoto);
+    //takePhotoButton.addEventListener("click", TakePhoto);
+    //video.addEventListener("click", TakePhoto);
+    //svg.addEventListener("click", TakePhoto);
     video.addEventListener("play", calculateBoundingBox);
 
-    function TakePhoto() {
+    innerCircle.addEventListener("click", TakePhoto);
+    outerCircle.addEventListener("click", TakePhoto);
 
+    tryAgain.addEventListener("click", function () {
+        mediaAttempts = 0;
+        tryAgain.classList.add("hidden");
+        svg.classList.remove("hidden");
+        start(HDEnvironmentConstraints);
+    });
+
+    function TakePhoto() {
+        video.pause();
         svg.classList.add("hidden");
         calculateBoundingBox();
         console.log("Taking a picture");
@@ -75,6 +93,7 @@
         video.classList.add("hidden");
         canvas.classList.remove("hidden");
 
+        //video.classList.remove('mirrored');
         canvas.getContext('2d').drawImage(video, 0, actualCropStartY, actualWidth, actualCardHeight, 0, 0, videoDisplayWidth, videoDisplayCardHeight);
 
         deets.innerText = "Video Height: " + videoDisplayHeight +
@@ -97,7 +116,7 @@
 
         videoDisplayCardHeight = videoDisplayWidth * aspectRatio;
         cropStartY = videoDisplayHeight * 0.5 - videoDisplayCardHeight * 0.5;
-        
+
         if (cropStartY > 0) {
             topBox.setAttribute("width", videoDisplayWidth);
             topBox.setAttribute("height", cropStartY);
@@ -109,6 +128,13 @@
             bottomBox.setAttribute("x", 0);
             bottomBox.setAttribute("y", cropStartY + videoDisplayCardHeight);
 
+            innerCircle.setAttribute("cx", videoDisplayWidth * 0.5);
+            innerCircle.setAttribute("cy", videoDisplayHeight - 0.5 * cropStartY);
+            innerCircle.setAttribute("r", cropStartY * (1/8) - 10);
+
+            outerCircle.setAttribute("cx", videoDisplayWidth * 0.5);
+            outerCircle.setAttribute("cy", videoDisplayHeight - 0.5 * cropStartY);
+            outerCircle.setAttribute("r", cropStartY * (1/8));
         }
 
         deets.innerText = "Video Canvas Height: " + videoDisplayHeight +
@@ -119,23 +145,23 @@
             " Horizontal Resolution: " + video.videoWidth
     };
 
-    switchCamera.onclick = function () {
-        if (video.classList.contains("user")) {
-            video.classList.remove("user");
-            video.classList.remove("mirrored");
-            start(rearCameraConstraints);
-        } else {
-            video.classList.add("user");
-            video.classList.add("mirrored");
-            start(frontCameraConstraints);
-        }
-    };
+    // switchCamera.onclick = function () {
+    //     if (video.classList.contains("user")) {
+    //         video.classList.remove("user");
+    //         video.classList.remove("mirrored");
+    //         start(rearCameraConstraints);
+    //     } else {
+    //         video.classList.add("user");
+    //         video.classList.add("mirrored");
+    //         start(frontCameraConstraints);
+    //     }
+    // };
 
-    var link = document.querySelector('.save');
-    link.addEventListener('click', function (ev) {
-        link.href = HDCanvas.toDataURL();
-        link.download = "mypainting.png";
-    }, false);
+    // var link = document.querySelector('.save');
+    // link.addEventListener('click', function (ev) {
+    //     link.href = HDCanvas.toDataURL();
+    //     link.download = "mypainting.png";
+    // }, false);
 
     const rearCameraConstraints = {
         audio: false,
@@ -196,21 +222,37 @@
     function handleError(error) {
         console.log(mediaAttempts);
         console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
-        if (error.name === "OverconstrainedError" && mediaAttempts < maxMediaAttempts) {
-            switch (mediaAttempts) {
-                case 0:
-                    start(HDUserConstraints);
-                    break;
-                case 1:
-                    start(generalConstraints);
-                    break;
+        if (mediaAttempts < maxMediaAttempts) {
+            if (error.name === "OverconstrainedError") {
+                switch (mediaAttempts) {
+                    case 0:
+                        start(HDUserConstraints);
+                        break;
+                    case 1:
+                        start(generalConstraints);
+                        break;
+                }
+
             }
 
+            if (error.name === "NotAllowedError") {
+                tryAgain.classList.remove("hidden");
+                svg.classList.add("hidden");
+            }
         }
-        mediaAttempts += 1;
+
+        mediaAttempts += 1; 
     }
 
-    start(HDEnvironmentConstraints);
+    const testConstraints = {
+        video: {
+            width: { exact: 303.4},
+            height: { exact: 481.5 }
+        }
+    }
+
+    // start(HDEnvironmentConstraints);
+    start(testConstraints);
 
     function start(constraints) {
         if (typeof constraints.video.facingMode === 'undefined') {

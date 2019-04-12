@@ -6,6 +6,7 @@ video {
 body {
     display: flex;
     justify-content: center;
+    margin: 0;
 }
 
 .hidden {
@@ -35,7 +36,7 @@ body {
 }
 
 rect {
-    fill:rgb(206, 204, 204);
+    fill:#000000;
 	fill-opacity: 0.7;
 }
 
@@ -43,4 +44,13 @@ rect {
     position: absolute;
     top: 0;
     z-index: 1000;
+}
+
+circle {
+    stroke: #ffffff;
+    stroke-width: 5;
+}
+
+circle.innerCircle{
+    fill: #ffffff;       
 }
