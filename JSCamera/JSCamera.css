@@ -28,11 +28,6 @@ body {
     /* Firefox */
 }
 
-.controls {
-    display: flex;
-    justify-content: space-evenly;
-}
-
 .controls button{
     font-size: 5em;
 }
