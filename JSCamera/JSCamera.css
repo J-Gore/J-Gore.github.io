@@ -4,9 +4,9 @@ video {
 }
 
 body {
-    display: inline-block;
-    justify-content: center;
-    margin-left: 50%;
+    /* display: inline-block; */
+    /* justify-content: center; */
+    /* margin-left: 50%; */
     background: black;
 }
 
