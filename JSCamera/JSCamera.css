@@ -51,6 +51,7 @@ body {
 circle {
     stroke: #ffffff;
     stroke-width: 5;
+    fill:#00000000;
 }
 
 circle.innerCircle {

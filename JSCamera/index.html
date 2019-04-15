@@ -70,6 +70,9 @@
     //takePhotoButton.addEventListener("click", TakePhoto);
     //video.addEventListener("click", TakePhoto);
     //svg.addEventListener("click", TakePhoto);
+
+    window.addEventListener("deviceorientation", handleOrientation, true);
+
     video.addEventListener("play", calculateBoundingBox);
 
     innerCircle.addEventListener("click", TakePhoto);
@@ -146,6 +149,14 @@
             outerCircle.setAttribute("cx", videoDisplayWidth * 0.5);
             outerCircle.setAttribute("cy", videoDisplayHeight - 0.5 * cropStartY);
             outerCircle.setAttribute("r", cropStartY * (1 / 8));
+        } else {
+            innerCircle.setAttribute("cx", videoDisplayWidth * 0.5);
+            innerCircle.setAttribute("cy", videoDisplayHeight * 0.7);
+            innerCircle.setAttribute("r", 40);
+
+            outerCircle.setAttribute("cx", videoDisplayWidth * 0.5);
+            outerCircle.setAttribute("cy", videoDisplayHeight * 0.7);
+            outerCircle.setAttribute("r", 50);
         }
 
         deets.innerText = "Video Canvas Height: " + videoDisplayHeight +
@@ -275,6 +286,20 @@
             video.classList.remove("mirrored");
         }
         navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+    }
+
+    function handleOrientation(event) {
+        var absolute = event.absolute;
+        var alpha = event.alpha;
+        var beta = event.beta;
+        var gamma = event.gamma;
+
+        deets.innerText = "absolute: " + absolute +
+                        " alpha: " + alpha +
+                        " beta: " + beta +
+                        " gamma: " + gamma;
+
+        // Do stuff with the new orientation data
     }
 </script>
 
