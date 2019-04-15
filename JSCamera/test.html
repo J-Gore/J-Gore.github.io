@@ -1,0 +1,301 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="JSCamera.css">
+    <title>Card Upload</title>
+</head>
+
+<body>
+    <div id="container">
+        <button class="js-try-again hidden">We need to access your camera, click here to try again.</button>
+        <video class="" playsinline autoplay></video>
+        <canvas class="hidden"></canvas>
+        <canvas class="highres hidden"></canvas>
+        <div clas="hidden">
+            <svg class="boundingSvg">
+                <defs>
+                    <linearGradient id="topBoundingGradient" gradientTransform="rotate(90)">
+                        <stop offset="5%" stop-color="black" />
+                        <stop offset="95%" stop-color="black" stop-opacity="0.7" />
+                    </linearGradient>
+                    <linearGradient id="bottomBoundingGradient" gradientTransform="rotate(90)">
+                        <stop offset="5%" stop-color="black" stop-opacity="0.7" />
+                        <stop offset="95%" stop-color="black" />
+                    </linearGradient>
+
+                </defs>
+                <rect class="topBox" fill="url('#topBoundingGradient')" />
+                <rect class="bottomBox" fill="url('#bottomBoundingGradient')" />
+                <circle class="outerCircle"></circle>
+                <circle class="innerCircle"></circle>
+                <text x="200" y="200">Hello</text>
+            </svg>
+        </div>
+
+        <p class="deets"></p>
+    </div>
+</body>
+
+<script>
+    const video = document.querySelector('video');
+    const canvas = window.canvas = document.querySelector('canvas');
+    const videoSelect = document.querySelector('select#videoSource');
+    const switchCamera = document.querySelector('.switch');
+    const deets = document.querySelector('.deets');
+    const container = document.querySelector('#container');
+    const HDCanvas = document.querySelector('.highres');
+    const tryAgain = document.querySelector('.js-try-again');
+
+    var innerCircle = document.querySelector('circle.innerCircle');
+    var outerCircle = document.querySelector('circle.outerCircle');
+
+    const maxMediaAttempts = 5;
+    var mediaAttempts = 0;
+
+    const takePhotoButton = document.querySelector('.snapShot');
+    var svg = document.querySelector('.boundingSvg');
+
+    var aspectRatio = 0.63;
+
+    var videoDisplayWidth;
+    var videoDisplayHeight;
+    var videoDisplayCardHeight;
+    var cropStartY;
+
+    //takePhotoButton.addEventListener("click", TakePhoto);
+    //video.addEventListener("click", TakePhoto);
+    //svg.addEventListener("click", TakePhoto);
+
+    window.addEventListener("deviceorientation", handleOrientation, true);
+
+    video.addEventListener("play", calculateBoundingBox);
+
+    innerCircle.addEventListener("click", TakePhoto);
+    outerCircle.addEventListener("click", TakePhoto);
+
+    tryAgain.addEventListener("click", function () {
+        mediaAttempts = 0;
+        tryAgain.classList.add("hidden");
+        svg.classList.remove("hidden");
+        start(HDEnvironmentConstraints);
+    });
+
+    function TakePhoto() {
+        video.pause();
+        svg.classList.add("hidden");
+        calculateBoundingBox();
+        console.log("Taking a picture");
+
+        var actualWidth = video.videoWidth;
+        var actualHeight = video.videoHeight;
+        var actualCardHeight = actualWidth * aspectRatio;
+        var actualCropStartY = actualHeight * 0.5 - actualCardHeight * 0.5;
+
+        HDCanvas.width = actualWidth;
+        HDCanvas.height = actualCardHeight;
+        HDCanvas.getContext('2d').drawImage(video, 0, actualCropStartY, actualWidth, actualCardHeight, 0, 0, actualWidth, actualCardHeight);
+
+
+        canvas.width = videoDisplayWidth;
+        canvas.height = videoDisplayCardHeight;
+
+        video.classList.add("hidden");
+        canvas.classList.remove("hidden");
+
+        //video.classList.remove('mirrored');
+        canvas.getContext('2d').drawImage(video, 0, actualCropStartY, actualWidth, actualCardHeight, 0, 0, videoDisplayWidth, videoDisplayCardHeight);
+
+        deets.innerText = "Video Height: " + videoDisplayHeight +
+            " Video Width: " + videoDisplayWidth +
+            " Card Height: " + videoDisplayCardHeight +
+            " Crop Start Y: " + cropStartY
+    };
+
+    function calculateBoundingBox() {
+        console.log("calculating bounding box");
+
+        var topBox = document.querySelector('.topBox');
+        var bottomBox = document.querySelector('.bottomBox');
+
+        videoDisplayWidth = parseInt(window.getComputedStyle(video).width);
+        videoDisplayHeight = Math.ceil(parseFloat(window.getComputedStyle(video).height)) + 1;
+
+        svg.setAttribute("width", videoDisplayWidth);
+        svg.setAttribute("height", videoDisplayHeight);
+
+        videoDisplayCardHeight = Math.ceil(videoDisplayWidth * aspectRatio);
+        cropStartY = Math.ceil(videoDisplayHeight * 0.5 - videoDisplayCardHeight * 0.5);
+
+        if (cropStartY > 0) {
+            topBox.setAttribute("width", videoDisplayWidth);
+            topBox.setAttribute("height", cropStartY);
+            topBox.setAttribute("x", 0);
+            topBox.setAttribute("y", 0);
+
+            bottomBox.setAttribute("width", videoDisplayWidth);
+            bottomBox.setAttribute("height", cropStartY);
+            bottomBox.setAttribute("x", 0);
+            bottomBox.setAttribute("y", cropStartY + videoDisplayCardHeight);
+
+            innerCircle.setAttribute("cx", videoDisplayWidth * 0.5);
+            innerCircle.setAttribute("cy", videoDisplayHeight - 0.5 * cropStartY);
+            innerCircle.setAttribute("r", cropStartY * (1 / 8) - 10);
+
+            outerCircle.setAttribute("cx", videoDisplayWidth * 0.5);
+            outerCircle.setAttribute("cy", videoDisplayHeight - 0.5 * cropStartY);
+            outerCircle.setAttribute("r", cropStartY * (1 / 8));
+        } else {
+            innerCircle.setAttribute("cx", videoDisplayWidth * 0.5);
+            innerCircle.setAttribute("cy", videoDisplayHeight * 0.7);
+            innerCircle.setAttribute("r", 40);
+
+            outerCircle.setAttribute("cx", videoDisplayWidth * 0.5);
+            outerCircle.setAttribute("cy", videoDisplayHeight * 0.7);
+            outerCircle.setAttribute("r", 50);
+        }
+
+        deets.innerText = "Video Canvas Height: " + videoDisplayHeight +
+            " Video Canvas Width: " + videoDisplayWidth +
+            " Card Canvas Height: " + videoDisplayCardHeight +
+            " Canvas Crop Start Y: " + cropStartY +
+            " Vertical Resolution: " + video.videoHeight +
+            " Horizontal Resolution: " + video.videoWidth
+    };
+
+    // switchCamera.onclick = function () {
+    //     if (video.classList.contains("user")) {
+    //         video.classList.remove("user");
+    //         video.classList.remove("mirrored");
+    //         start(rearCameraConstraints);
+    //     } else {
+    //         video.classList.add("user");
+    //         video.classList.add("mirrored");
+    //         start(frontCameraConstraints);
+    //     }
+    // };
+
+    // var link = document.querySelector('.save');
+    // link.addEventListener('click', function (ev) {
+    //     link.href = HDCanvas.toDataURL();
+    //     link.download = "mypainting.png";
+    // }, false);
+
+    const rearCameraConstraints = {
+        audio: false,
+        video: { facingMode: { exact: "environment" } }
+    };
+
+    const frontCameraConstraints = {
+        audio: false,
+        video: { facingMode: { exact: "user" } }
+    };
+
+    const generalConstraints = {
+        audio: false,
+        video: true
+    }
+    const fullHdConstraints = {
+        video: { width: 1920, height: 1080 }
+    };
+
+    const hdConstraints = {
+        video: { width: { exact: 1280 }, height: { exact: 720 } }
+    };
+
+    const HDEnvironmentConstraints = {
+        video: {
+            facingMode: { exact: "environment" },
+            width: { ideal: 4096 },
+            height: { ideal: 2160 }
+        }
+    }
+
+    const HDUserConstraints = {
+        video: {
+            facingMode: { exact: "user" },
+            width: { ideal: 4096 },
+            height: { ideal: 2160 }
+        }
+    }
+
+    const loadsOfConstraints = {
+        video: {
+            optional: [
+                { minWidth: 320 },
+                { minWidth: 640 },
+                { minWidth: 1024 },
+                { minWidth: 1280 },
+                { minWidth: 1920 },
+                { minWidth: 2560 },
+            ]
+        }
+    }
+
+    function handleSuccess(stream) {
+        window.stream = stream; // make stream available to browser console
+        video.srcObject = stream;
+    }
+
+    function handleError(error) {
+        console.log(mediaAttempts);
+        console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
+        if (mediaAttempts < maxMediaAttempts) {
+            if (error.name === "OverconstrainedError") {
+                switch (mediaAttempts) {
+                    case 0:
+                        start(HDUserConstraints);
+                        break;
+                    case 1:
+                        start(generalConstraints);
+                        break;
+                }
+
+            }
+
+            if (error.name === "NotAllowedError") {
+                tryAgain.classList.remove("hidden");
+                svg.classList.add("hidden");
+            }
+        }
+
+        mediaAttempts += 1;
+    }
+
+    const testConstraints = {
+        video: {
+            width: { exact: 303.4 },
+            height: { exact: 481.5 }
+        }
+    }
+
+    start(HDEnvironmentConstraints);
+    //start(testConstraints);
+
+    function start(constraints) {
+        if (typeof constraints.video.facingMode === 'undefined') {
+
+        }
+        else if (constraints.video.facingMode.exact === "user") {
+            video.classList.add("mirrored");
+        } else if (constraints.video.facingMode.exact === "environment") {
+            video.classList.remove("mirrored");
+        }
+        navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+    }
+
+    function handleOrientation(event) {
+        var absolute = event.absolute;
+        var alpha = event.alpha;
+        var beta = event.beta;
+        var gamma = event.gamma;
+
+        deets.innerText = "absolute: " + absolute +
+            " alpha: " + alpha +
+            " beta: " + beta +
+            " gamma: " + gamma;
+
+        // Do stuff with the new orientation data
+    }
+</script>
+
+</html>
