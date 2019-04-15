@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <input type="file" accept="image/*" class="js-fileUpload" /> 
+    <input type="file" accept="image/*" class="js-fileUpload" />
     <p class="x"></p>
     <p class="y"></p>
     <canvas class="js-uploadedImageDisplay"></canvas>
@@ -17,7 +17,10 @@
     var canvas = document.querySelector(".js-uploadedImageDisplay");
     var ctx = canvas.getContext("2d");
     var img = new Image();
-
+    img.src = "Watsit hog.jpg";
+    canvas.setAttribute("width", 2000);
+    canvas.setAttribute("height", 2000);
+    ctx.drawImage(img, 0, 0);
     upload.addEventListener("change", readImage, false);
 
 
@@ -95,7 +98,7 @@
         }
     }
 
-    function updateXY(x,y){
+    function updateXY(x, y) {
         var px = document.querySelector(".x");
         var py = document.querySelector(".Y");
 
@@ -105,22 +108,22 @@
 
     canvas.addEventListener("mousedown", function (e) {
         console.log("mousedown");
-        handleMouseDown(e); 
+        handleMouseDown(e);
     });
 
     canvas.addEventListener("mousemove", function (e) {
         console.log("mousemove");
-        handleMouseMove(e); 
+        handleMouseMove(e);
     });
 
     canvas.addEventListener("mouseup", function (e) {
         console.log("mouseup");
-        handleMouseUp(e); 
+        handleMouseUp(e);
     });
 
     canvas.addEventListener("mouseout", function (e) {
         console.log("mouseout");
-        handleMouseOut(e); 
+        handleMouseOut(e);
     });
 </script>
 
