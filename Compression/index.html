@@ -1,0 +1,58 @@
+<html>
+<header>
+	<title>Jake Gore // Compress That Image!</title>
+</header>
+
+<body>
+	<div>
+		<label for="passes">Passes</label>
+		<input id="passes" type="text" class="passes" value="200">
+		<label for="compression">Compression</label>
+		<input id="compression" type="text" class="compression" value="0.1">
+		<input type="file" accept="image/*" class="image">
+		<button>Compress!</button>
+	</div>	
+	<img/>
+	<canvas style="display: none;"></canvas>
+</body>
+
+<script type="text/javascript">
+	var input = document.querySelector('.image');
+	var passes = document.querySelector('.passes');
+	var compression = document.querySelector('.compression');
+	var img = document.querySelector('img');
+	var button = document.querySelector('button');
+	var canvas = document.querySelector('canvas');
+	var ctx = canvas.getContext('2d');
+
+	button.addEventListener('click', function() {
+		canvas.setAttribute('width',img.width);
+	    canvas.setAttribute('height',img.height);
+
+		for (var i = 0; i < passes.value; i++) {
+			compress();
+		}
+	})
+
+	function compress() {
+		ctx.drawImage(img,0,0);
+		img.setAttribute('src', canvas.toDataURL('image/jpeg', parseFloat(compression.value)));
+	}
+
+	function readURL(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+
+	    reader.onload = function(e) {
+	    	img.setAttribute('src', e.target.result);
+	    }
+
+	    reader.readAsDataURL(input.files[0]);
+	  }
+	}
+
+	input.addEventListener('change', function() {
+		readURL(this);
+	});
+</script>
+</html>
