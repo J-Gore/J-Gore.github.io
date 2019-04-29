@@ -49,6 +49,12 @@
     var innerCircle = document.querySelector('circle.innerCircle');
     var outerCircle = document.querySelector('circle.outerCircle');
 
+    var cameraSupported = 'mediaDevices' in navigator;
+
+    if(!cameraSupported){
+        hideCameraView();
+    }
+
     const maxMediaAttempts = 5;
     var mediaAttempts = 0;
 
@@ -72,6 +78,10 @@
 
     innerCircle.addEventListener("click", TakePhoto);
     outerCircle.addEventListener("click", TakePhoto);
+
+    function hideCameraView() {
+        
+    };
 
     tryAgain.addEventListener("click", function () {
         mediaAttempts = 0;
