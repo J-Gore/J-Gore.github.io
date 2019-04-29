@@ -28,11 +28,14 @@
                 <rect class="bottomBox" fill="url('#bottomBoundingGradient')" />
                 <circle class="outerCircle"></circle>
                 <circle class="innerCircle"></circle>
-                <text x="200" y="200">Hello</text>
             </svg>
         </div>
 
         <p class="deets"></p>
+    </div>
+    <div class="unsupported hidden">
+        <h1>This is the fallback bit. Look at this image for now.</h1>
+        <img src="https://blog.humanesociety.org/wp-content/uploads/2018/09/DSC_0004_171207-e1537549082632-1220x812.jpg">
     </div>
 </body>
 
@@ -45,6 +48,7 @@
     const container = document.querySelector('#container');
     const HDCanvas = document.querySelector('.highres');
     const tryAgain = document.querySelector('.js-try-again');
+    var unsupported = document.querySelector('.unsupported');
 
     var innerCircle = document.querySelector('circle.innerCircle');
     var outerCircle = document.querySelector('circle.outerCircle');
@@ -80,7 +84,8 @@
     outerCircle.addEventListener("click", TakePhoto);
 
     function hideCameraView() {
-        
+        container.classList.add('hidden');
+        unsupported.classList.remove('hidden');
     };
 
     tryAgain.addEventListener("click", function () {

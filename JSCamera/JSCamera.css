@@ -59,3 +59,7 @@ circle.innerCircle {
     color: white;
     z-index: 3000;
 }
+
+.unsupported {
+    background: white;
+}
