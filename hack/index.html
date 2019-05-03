@@ -6,7 +6,7 @@
 
 <body>
     <div class="forest">
-
+        <h1 class="treeCount">You can grow: </h1>
     </div>
 </body>
 
@@ -16,27 +16,71 @@
     var windowHeight = 810;
     var display = document.querySelector(".forest");
     var i = 0;
+    var treeCount = 1;
+    var treeCountElem = document.querySelector(".treeCount");
     main();
 
+    display.addEventListener("click", function(e){
+        if(treeCount > 0){
+            treeCount --;
+            treeCountElem.textContent = "You can plant: " + treeCount + " trees!";
+            plantTree(e.clientX, e.clientY, 50);
+        }
+    });
+
     function main() {
-        i++;
+        treeCount++;
+
+        display.querySelectorAll(".tree").forEach(function(element){
+            var x = Math.random();
+            if(x > 0.5){
+                growTree(element);
+            };
+        });
+        
+        treeCountElem.textContent = "You can plant: " + treeCount + " trees!";
+        setTimeout(main, 5000);
+    }
+
+    function plantTree(x, y, height) {
+        var opacity = Math.floor((Math.random() * 5) + 5) / 10;
+
+        var treeImg = document.createElement("img");
+
+        treeImg.src = "tree.png";
+        treeImg.classList.add("tree");
+        treeImg.setAttribute("style", "height:" + height + "px; top:" + y + "px; left:" + x + "px; filter: opacity(" + opacity + ")");
+        display.appendChild(treeImg);
+    }
+
+    function plantRandomTree() {
         var x = Math.floor((Math.random() * windowWidth) + 1);
 
         var y = Math.floor((Math.random() * windowHeight) + 1);
 
         var height = Math.floor((Math.random() * 100) + 30);
 
-        var opacity = Math.floor((Math.random() * 5) + 5) / 10;
-
-        var treeImg = document.createElement("img");
-        treeImg.src = "tree.png";
-        treeImg.classList.add(i);
-        treeImg.classList.add("tree");
-        treeImg.setAttribute("style", " top:" + y + "px; left:" + x + "px; height:" + height + "px; filter: opacity(" + opacity + ");");
-        display.appendChild(treeImg);
-
-        setTimeout(main, 2000);
+        plantTree(x,y,height);
     }
+
+    function growTree(tree) {
+        var oldStyle = tree.getAttribute("style");
+        var oldStyles = oldStyle.split(";");
+        var currentHeight = oldStyles[0];
+        var newHeight = parseInt(currentHeight.substring(7,currentHeight.length - 2)) + 10;
+        var newStyle = "height:" + newHeight + "px;" + recreateStyle(oldStyles);
+        tree.setAttribute("style", newStyle);
+    }
+
+    function recreateStyle(styles) { 
+        var style = "";
+        for(var i = 1; i < styles.length; i ++) {
+            if(styles[i] != "")
+                style += styles[i] + ";";
+        }
+        return style;
+    }
+
 </script>
 
 <style>
@@ -49,7 +93,7 @@
 
     .tree{
         position: absolute;
-        filter: opacity(.8);
+        transform-origin: bottom center;
     }
 
     body {
