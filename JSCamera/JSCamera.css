@@ -1,65 +1,67 @@
-video {
+@media (orientation: portrait) {
+	video {
     z-index: 1000;
     width: 100%;
-}
+	}
 
-body {
-    /* display: inline-block; */
-    /* justify-content: center; */
-    /* margin-left: 50%; */
-    background: black;
-}
+	body {
+		/* display: inline-block; */
+		/* justify-content: center; */
+		/* margin-left: 50%; */
+		background: black;
+	}
 
-.hidden {
-    display: none;
-}
+	.hidden {
+		display: none;
+	}
 
-#container {
-    position: relative;
-    width: 75em;
-    height: fit-content;
-}
+	#container {
+		position: relative;
+		width: 75em;
+		height: fit-content;
+	}
 
-.mirrored {
-    transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
-    /* Safari and Chrome */
-    -moz-transform: rotateY(180deg);
-    /* Firefox */
-}
+	.mirrored {
+		transform: rotateY(180deg);
+		-webkit-transform: rotateY(180deg);
+		/* Safari and Chrome */
+		-moz-transform: rotateY(180deg);
+		/* Firefox */
+	}
 
-.controls button{
-    font-size: 5em;
-}
+	.controls button{
+		font-size: 5em;
+	}
 
- rect {
-    fill:#000000;
-	fill-opacity: 0.7;
-} 
+	 rect {
+		fill:#000000;
+		fill-opacity: 0.7;
+	} 
 
-.boundingSvg {
-    position: absolute;
-    top: 0;
-    z-index: 1000;
-}
+	.boundingSvg {
+		position: absolute;
+		top: 0;
+		z-index: 1000;
+	}
 
-circle {
-    stroke: #ffffff;
-    stroke-width: 5;
-    fill:#00000000;
-}
+	circle {
+		stroke: #ffffff;
+		stroke-width: 5;
+		fill:#00000000;
+	}
 
-circle.innerCircle {
-    fill: #ffffff;       
-}
+	circle.innerCircle {
+		fill: #ffffff;       
+	}
 
-.deets {
-    position: absolute;
-    top:0;
-    color: white;
-    z-index: 3000;
-}
+	.deets {
+		position: absolute;
+		top:0;
+		color: white;
+		z-index: 3000;
+	}
 
-.unsupported {
-    background: white;
+	.unsupported {
+		background: white;
+	}
 }
