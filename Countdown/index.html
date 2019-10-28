@@ -16,23 +16,21 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'UA-110467141-2');
     </script>
 
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-    <title>Countdown to PID Deadline: </title>
+    <title>Countdown to University of Hull's Languages and their Compilers Coursework</title>
   </head>
   
   <div>
-    <h1 class="content">Time until PID deadline: </h1>  
+    <h1 class="content">Time until L&C deadline: </h1>  
     <h1 class="content" id="demo"; >?</h1> 
   </div>
  
   <script>
-  // Set the date we're counting down to
-  //var countDownDate = new Date("May 22, 2020 14:00:00").getTime();
-  var countDownDate = new Date("October 23, 2019 14:00:00").getTime();  
+  
+  var countDownDate = new Date("November 13, 2019 14:00:00").getTime();  
   
   // Update the count down every 1 second
   var x = setInterval(function() {
@@ -41,14 +39,17 @@
   // Find the distance between now an the count down date
   var distance = countDownDate - now;
   // Time calculations for days, hours, minutes and seconds
-  var weeks = Math.floor(distance / (1000 * 60 * 60 * 24 * 7));
-  var days = Math.floor((distance % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+    
+ // var weeks = Math.floor(distance / (1000 * 60 * 60 * 24 * 7));
+ // var days = Math.floor((distance % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));  
+  
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
   // Display the result in the element with id="demo"
-  document.getElementById("demo").innerHTML = hours + "h "
-  + minutes + "m " + seconds + "s "; // weeks + "w " + days + "d " +
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s "; // weeks + "w " + 
   // If the count down is finished, write some text 
   if (distance < 0) {
     clearInterval(x);
