@@ -1,4 +1,7 @@
 What is the Grammar Hiararchy Called?	The Chomsky Hiararchy
-What is a Type 3 Grammar used for?	Lexer/Scanner
+What is a Type 3 Grammar used for? 	Lexer/Scanner
 How many types of Grammar are there?	4|Type 0 to 3
-Name the types of grammar.	Type 0: Free/Unrestricted Grammars|Type 2: Context-Sensitive Grammars|Type 2: Context Free Grammars (CFGs)|Type 3: Regular Grammars
+Name the types of grammar.	Type 0: Free/Unrestricted Grammars|Type 2: Context-Sensitive Grammars|Type 2: Context Free Grammars (CFGs) .y|Type 3: Regular Grammars .l
+What are the parts of a grammar?	Terminals|Non-Terminals|Production Rules|Starting Symbol
+What are Terminals? 	Leaf Nodes|Lexemes(Words)
+What are Non-Terminals? 	Rules|Sentences and Phrases
