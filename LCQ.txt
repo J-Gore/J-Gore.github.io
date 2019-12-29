@@ -1,3 +1,3 @@
-Side 1	Side 2
-Side 1	Side 2
-Side 1	Side 2	Side 3
+What is the Grammar Hiararchy Called?	The Chomsky Hiararchy
+What is a Type 3 Grammar used for?	Lexer/Scanner
+How many types of Grammar are there?	4|Type 0 to 3
