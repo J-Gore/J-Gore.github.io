@@ -5,3 +5,9 @@ Name the types of grammar.	Type 0: Free/Unrestricted Grammars|Type 2: Context-Se
 What are the parts of a grammar?	Terminals|Non-Terminals|Production Rules|Starting Symbol
 What are Terminals? 	Leaf Nodes|Lexemes(Words)
 What are Non-Terminals? 	Rules|Sentences and Phrases
+What type of Grammar is BNF & EBNF? 	Type 2:|Context Free (CFG)
+In BNF what is the equals symbol? 	::=
+In EBNF what is the equals symbol? 	=
+In EBNF what does [x] mean? 	Zero or One x
+In EBNF what does {x} mean? 	Zero or more x
+In EBNF how is * used? 	For a specific number of repetitions.|e.g. x * 10 for 10 x
