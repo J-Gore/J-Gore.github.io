@@ -1,62 +1,66 @@
 <!DOCTYPE html>
 <html>
-  <style>
-    h1 {
-    font-family: Tahoma, Geneva, sans-serif;
-    font-size:140px}
-    .content{
-      max-width: 100%;
-    }
-  </style>
-  
-  <head>
-       <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110467141-2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-110467141-2');
-    </script>
+	<style>
+		h1 {
+			font-family: Tahoma, Geneva, sans-serif;
+			font-size:700%
+		}
+		.content{
+			max-width: 100%;
+		}
+	</style>
 
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-    <title>Countdown to University of Hull's Embedded Systems Development Coursework</title>
-  </head>
-  
-  <div>
-    <h1 class="content">Time until Embedded ACW deadline: </h1>  
-    <h1 class="content" id="demo"; >?</h1> 
-  </div>
- 
-  <script>
-  
-  var countDownDate = new Date("December 13, 2019 14:00:00").getTime();  
-  
-  // Update the count down every 1 second
-  var x = setInterval(function() {
-  // Get todays date and time
-  var now = new Date().getTime();
-  // Find the distance between now an the count down date
-  var distance = countDownDate - now;
-  // Time calculations for days, hours, minutes and seconds
-    
- // var weeks = Math.floor(distance / (1000 * 60 * 60 * 24 * 7));
- // var days = Math.floor((distance % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));  
-  
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  // Display the result in the element with id="demo"
-  document.getElementById("demo").innerHTML = hours + "h " //days + "d " +
-  + minutes + "m " + seconds + "s "; // weeks + "w " + 
-  // If the count down is finished, write some text 
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "HAND IT IN!";
-  }
-}, 1000);
-</script>
-  
-</body>
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110467141-2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-110467141-2');
+		</script>
+
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<title>Countdown to University of Hull's Embedded Systems Development Exam</title>
+	</head>
+
+	<body>
+		<div>
+			<h1 class="content">Time until Embedded Exam: </h1>  
+			<h1 class="content" id="time"; ></h1> 
+		</div>
+	</body>
+
+	<script>
+		var countDownDate = new Date("January 8, 2020 09:00:00").getTime();  
+
+		var x = setInterval(function() {
+			var timeString = "";
+			var now = new Date().getTime();
+			
+			var delta = countDownDate - now;
+
+			if (delta < 0) {
+				clearInterval(x);
+				document.getElementById("time").innerHTML = "GOOD LUCK!";
+			}
+
+			var weeks = Math.floor(delta / (1000 * 60 * 60 * 24 * 7));
+			if(weeks > 0) timeString += weeks + "w ";
+
+			var days = Math.floor((delta % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));  
+			if(days > 0) timeString += days + "d ";
+
+			var hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			if(hours > 0) timeString += hours + "h ";
+
+			var minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+			if(minutes > 0) timeString += minutes + "m ";
+
+			var seconds = Math.floor((delta % (1000 * 60)) / 1000);
+			timeString += seconds + "s ";
+
+			document.getElementById("time").innerHTML = timeString;
+		}, 1000);
+	</script>
 </html>
