@@ -33,8 +33,12 @@
 
 	<script>
 		var countDownDate = new Date("January 15, 2020 14:00:00").getTime();  
+		time();
+		
+		var x = setInterval(time, 1000);
 
-		var x = setInterval(function() {
+
+		function time() {
 			var timeString = "";
 			var now = new Date().getTime();
 			
@@ -78,6 +82,6 @@
 
 				document.getElementById("time").innerHTML = timeString;
 			}
-		}, 1000);
+		}
 	</script>
 </html>
