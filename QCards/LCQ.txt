@@ -2,7 +2,7 @@ What is the Grammar Hiararchy Called?	The Chomsky Hiararchy
 What is a Type 3 Grammar used for? 	Lexer/Scanner
 How many types of Grammar are there?	4|Type 0 to 3
 Name the types of grammar.	Type 0: Free/Unrestricted Grammars|Type 2: Context-Sensitive Grammars|Type 2: Context Free Grammars (CFGs) .y|Type 3: Regular Grammars .l
-What are the parts of a grammar?	Terminals|Non-Terminals|Production Rules|Starting Symbol
+What are the parts needed for a grammar?	Terminals|Non-Terminals|Production Rules|Starting Symbol|TNPS
 What are Terminals? 	Leaf Nodes|Lexemes(Words)
 What are Non-Terminals? 	Rules|Sentences and Phrases
 What type of Grammar is BNF & EBNF? 	Type 2:|Context Free (CFG)
@@ -11,3 +11,13 @@ In EBNF what is the equals symbol? 	=
 In EBNF what does [x] mean? 	Zero or One x
 In EBNF what does {x} mean? 	Zero or more x
 In EBNF how is * used? 	For a specific number of repetitions.|e.g. x * 10 for 10 x
+In regex represent a range or collection.     [0-9] or [xyzw]
+In regex represent one or more things.  +
+In regex represent zero or more things.  *
+In regex represent one or one thing.  ?
+Regex OR    "|"
+Regex/EBNF grouping     ()
+Regex .     Any character other than newline.
+Regex, not in a collection or range.    [^ ...]
+Regex, repeat an expression multiple times.     {8} is 8 times.
+What is Duck Typing?    If it looks like a duck and quacks like a duck, then it's a duck.
