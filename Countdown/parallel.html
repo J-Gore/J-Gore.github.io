@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<style>
+		h1 {
+			font-family: Tahoma, Geneva, sans-serif;
+			font-size:700%
+		}
+		.content{
+			max-width: 100%;
+		}
+	</style>
+
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110467141-2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-110467141-2');
+		</script>
+
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<title>Countdown to University of Hull's Computer Science Parallel and Concurrent Assessed Coursework deadline.</title>
+	</head>
+
+	<body>
+		<div>
+			<h1 class="content">Time Until Parallel Deadline: </h1>  
+			<h1 class="content" id="time"; ></h1> 
+		</div>
+	</body>
+
+	<script>
+		var countDownDate = new Date("April 30, 2020 14:00:00").getTime();  
+		time();
+
+		var x = setInterval(time, 1000);
+
+		function time() {
+			var timeString = "";
+			var now = new Date().getTime();
+			
+			var delta = countDownDate - now;
+
+			if (delta < 0) {
+				clearInterval(x);
+				document.getElementById("time").innerHTML = "HAND IT IN!";
+			} else {
+				var dispPrev = true;
+
+				var weeks = Math.floor(delta / (1000 * 60 * 60 * 24 * 7));
+				if(weeks > 0) {
+					timeString += weeks + "w ";
+				} else {
+					dispPrev = false;
+				}
+
+				var days = Math.floor((delta % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));  
+				if(days > 0 || dispPrev === true) {
+					dispPrev = true;
+					timeString += days + "d ";
+				} else {
+					dispPrev = false;
+				}
+
+				var hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				if(hours > 0 || dispPrev === true) {
+					dispPrev = true;
+					timeString += hours + "h ";
+				}
+
+				var minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+				if(minutes > 0 || dispPrev === true) {
+					dispPrev = true;
+					timeString += minutes + "m ";
+				}
+
+				var seconds = Math.floor((delta % (1000 * 60)) / 1000);
+				timeString += seconds + "s ";
+
+				document.getElementById("time").innerHTML = timeString;
+			}
+		}
+	</script>
+</html>
