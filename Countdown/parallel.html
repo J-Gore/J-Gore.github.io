@@ -32,7 +32,7 @@
 	</body>
 
 	<script>
-		var countDownDate = new Date("April 30, 2020 14:00:00").getTime();  
+		var countDownDate = new Date("May 14, 2020 14:00:00").getTime();  
 		time();
 
 		var x = setInterval(time, 1000);
@@ -49,22 +49,7 @@
 			} else {
 				var dispPrev = true;
 
-				var weeks = Math.floor(delta / (1000 * 60 * 60 * 24 * 7));
-				if(weeks > 0) {
-					timeString += weeks + "w ";
-				} else {
-					dispPrev = false;
-				}
-
-				var days = Math.floor((delta % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));  
-				if(days > 0 || dispPrev === true) {
-					dispPrev = true;
-					timeString += days + "d ";
-				} else {
-					dispPrev = false;
-				}
-
-				var hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var hours = Math.floor((delta % 604800000) / 86400000 * 24);
 				if(hours > 0 || dispPrev === true) {
 					dispPrev = true;
 					timeString += hours + "h ";
