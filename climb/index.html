@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+		crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+		crossorigin=""></script>
+
+
+
+	<style>
+		#map {
+			height: 80vh;
+			width: 100%;
+			background-color: blanchedalmond;
+		}
+
+		.map-wrapper {
+			width: 100%;
+		}
+
+		body {
+			background-color: darkslategrey;
+		}
+
+		.page-wrapper {
+			/* display: flex;
+			flex-direction: row;
+			justify-content: space-between; */
+		}
+
+		.circuit-menu {
+			display: flex;
+    	height: 10vh;
+    	justify-content: space-between;
+		}
+
+		.circuit-button {
+			cursor: pointer;
+			width: 19%;
+			height: 100%;
+			display: flex;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+			align-items: center;
+			flex-direction: row;
+		}
+
+		.white {
+			background-color: white;
+		}
+
+		.blue {
+			background-color: blue;
+		}
+
+		.black {
+			background-color: black;
+		}
+
+		.red {
+			background-color: red;
+		}
+
+		.purple {
+			background-color: purple;
+		}
+
+		button { 
+			height: 5vh;
+
+		}
+	</style>
+</head>
+
+<body>
+	<div class="page-wrapper">
+		<div class="map-wrapper">
+			<div id="map"></div>
+			<button id="mode_button">Change Mode</button>
+			<button id="save_button">Save</button>
+		</div>
+		<div class="circuit-menu">
+			<button class="white circuit-button"></button>
+			<button class="blue circuit-button"></button>
+			<button class="black circuit-button"></button>
+			<button class="red circuit-button"></button>
+			<button class="purple circuit-button"></button>
+		</div>
+	</div>
+	<script>
+		var wall_coords = [[
+[51.77811496737729,0.34881591796875],
+[51.77981386226866,1.1260986328125002],
+[51.524264301066516,1.1494445800781252],
+[51.52084723696152,1.3114929199218752],
+[51.777265495944185,1.2977600097656252],
+[51.78066328572712,1.9844055175781252],
+[51.89688318281268,1.9789123535156252],
+[51.906201699358014,1.388397216796875],
+[52.29417945474867,1.395263671875],
+[52.300057061941274,2.0159912109375004],
+[52.552825069346866,2.0489501953125004],
+[52.569517930179614,0.05493164062500001]], 
+[[51.42165044665857, 0.9448242187500001],
+[51.29991431458536, 0.9503173828125001],
+[51.2878946350089, 0.32958984375000006],
+[51.41993809935627, 0.31311035156250006],],
+[[51.65231688404613,0.8953857421875001],
+[51.56364000969063,0.9036254882812501],
+[51.53631996372285,0.3680419921875],
+[51.65061319280441,0.3680419921875],],
+[[51.637681043691394, -0.04943847656250001],
+[51.522500977445894, -0.0439453125],
+[51.52762629131998, 0.14144897460937503],
+[51.62660233050665, 0.13870239257812503],],
+[[51.60314154212206,1.4838409423828125],
+[51.671736314349445,1.4872741699218752],
+[51.699825932093745,1.5518188476562502],
+[51.70195322329214,1.6555023193359375],
+[51.678121848797495,1.6973876953125002],
+[51.67769617451026,1.79901123046875],
+[51.69940046185253,1.8491363525390627],
+[51.70408041447896,1.9466400146484377],
+[51.68025016021504,2.0050048828125004],
+[51.602715163394734,2.012557983398438],
+[51.5762718624395,1.9686126708984377],
+[51.568165188819805,1.8532562255859377],
+[51.592054393959764,1.808624267578125],
+[51.58949543692314,1.7056274414062502],
+[51.568591891895416,1.6822814941406252],
+[51.56517815515323,1.5456390380859377]],
+[[51.29307057176592,2.39501953125],
+[51.32911610682626,2.7850341796875004],
+[51.40454828783096,2.867431640625],
+[51.722049150484075,2.8454589843750004],
+[51.779847424562185,2.77130126953125],
+[51.779847424562185,2.37579345703125],
+[51.891833019793154,2.3620605468750004],
+[51.891833019793154,2.9031372070312504],
+[51.250122294158096,3.04046630859375],
+[51.18820623544196,2.3895263671875004]],
+[[52.30343122648397,2.3703002929687504],
+[52.08798742821675,2.4114990234375004],
+[52.037341665280735,2.4829101562500004],
+[52.03227393009742,2.8811645507812504],
+[51.92910535502733,2.8976440429687504],
+[51.92063837639005,3.0816650390625],
+[52.33700003230721,3.0651855468750004]]];
+		var currId = 0;
+
+		function getNewId() {
+			currId += 1;
+			return currId;
+		}
+
+		function setId(id) {
+			currId = id;
+		}
+		var climbs = {
+		}
+
+		const MODES = {
+			edit: "Edit",
+			log: "Log"
+		}
+		var mode = MODES.log;
+
+		const GRADES = {
+			white: "white",
+			blue: "blue",
+			black: "black",
+			red: "red",
+			purple: "purple",
+		}
+		var current_grade = GRADES.white;
+
+		var toggleModeButton = document.querySelector("#mode_button");
+		toggleModeButton.addEventListener("click", toggleMode);
+
+		function toggleMode() {
+			if (mode === MODES.log) {
+				mode = MODES.edit;
+			} else {
+				mode = MODES.log;
+			}
+
+			toggleModeButton.textContent = mode;
+		}
+
+		var saveButton = document.querySelector("#save_button");
+		saveButton.addEventListener("click", saveMap);
+
+		var poly_coords = [];
+
+		var map = L.map('map').setView([51.7,-0.09], 11);
+		var polygon = L.polygon(poly_coords).addTo(map);
+		
+		wall_coords.forEach((coords) => {
+			L.polygon(coords).addTo(map);
+		})
+		
+		function onMapClick(e) {
+			switch (mode) {
+				case MODES.edit:
+					var id = getNewId();
+					var climbOptions = {
+						color: current_grade,
+						fillColor: current_grade,
+						fillOpacity: 0.5,
+						radius: 400,
+						climbId: id,
+					};
+					addClimb(e.latlng, climbOptions);
+					climbs[id] = { latlng: e.latlng, options: climbOptions };
+					break;
+				case MODES.log:
+					// console.log(e,poly_coords)
+					// poly_coords = poly_coords.concat(e.latlng);
+					// polygon.remove(map);
+					// polygon = L.polygon(poly_coords).addTo(map);
+					// console.log(JSON.stringify(poly_coords))
+					// console.log(poly_coords)
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		document.querySelectorAll(".circuit-button").forEach((e) => { e.addEventListener("click", onCircuitButtonClick); });
+		function onCircuitButtonClick(e) {
+			var colour = e.srcElement.classList[0];
+			document.body.classList.remove(current_grade);
+			document.body.classList.add(colour);
+			current_grade = GRADES[colour];
+		}
+
+		map.on('click', onMapClick);
+
+		function saveMap() {
+			localStorage.setItem("map", JSON.stringify(climbs));
+		}
+
+		function loadMap() {
+			jsonMap = localStorage.getItem("map");
+			if (!jsonMap){
+				return; 
+			}
+			loadedClimbs = JSON.parse(jsonMap);
+			climbs = loadedClimbs;
+			loadedEntries = Object.entries(loadedClimbs);
+			for (const [_, c] of loadedEntries) {
+				addClimb(c.latlng, c.options);
+			}
+			setId(loadedClimbs.length);
+		}
+
+		function addClimb(latlng, options) {
+			var circle = L.circle(latlng, options).addTo(map);
+
+			circle.on('click', (e) => {
+				console.log(e);
+			});
+		}
+
+		loadMap();
+	</script>
+</body>
+
+</html>
