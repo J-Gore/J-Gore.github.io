@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<style>
+		h1 {
+			font-family: Tahoma, Geneva, sans-serif;
+			font-size:700%
+		}
+		.content{
+			max-width: 100%;
+		}
+	</style>
+
+	<head>
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<title>Countdown to Finding Stuff Out.</title>
+	</head>
+
+	<body>
+		<div>
+			<h1 class="content">Time before finding out: </h1>  
+			<h1 class="content" id="time"; ></h1> 
+		</div>
+	</body>
+
+	<script>
+		var countDownDate = new Date("March 09, 2023 06:00:00").getTime();  
+		time();
+
+		var x = setInterval(time, 1000);
+
+		function time() {
+			var timeString = "";
+			var now = new Date().getTime();
+			
+			var delta = countDownDate - now;
+
+			if (delta < 0) {
+				clearInterval(x);
+				document.getElementById("time").innerHTML = "LORD, I HOPE YOU'RE ON TIME!";
+			} else {
+				var dispPrev = true;
+
+				var weeks = Math.floor(delta / (1000 * 60 * 60 * 24 * 7));
+				if(weeks > 0) {
+					timeString += weeks + "w ";
+				} else {
+					dispPrev = false;
+				}
+
+				var days = Math.floor((delta % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));  
+				if(days > 0 || dispPrev === true) {
+					dispPrev = true;
+					timeString += days + "d ";
+				} else {
+					dispPrev = false;
+				}
+
+				var hours = Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				if(hours > 0 || dispPrev === true) {
+					dispPrev = true;
+					timeString += hours + "h ";
+				}
+
+				var minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+				if(minutes > 0 || dispPrev === true) {
+					dispPrev = true;
+					timeString += minutes + "m ";
+				}
+
+				var seconds = Math.floor((delta % (1000 * 60)) / 1000);
+				timeString += seconds + "s ";
+
+				document.getElementById("time").innerHTML = timeString;
+			}
+		}
+	</script>
+</html>
